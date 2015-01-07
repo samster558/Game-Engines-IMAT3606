@@ -1,3 +1,7 @@
+/**
+@file Camera.h
+*/
+
 #ifndef CAMERA_H
 #define CAMERA_H
 
@@ -17,21 +21,23 @@ protected:
 
 	sf::Event Event;
 
-	// Position variables
+	// Moving variables
 	GLfloat xCameraPosition, yCameraPosition, zCameraPosition;
 	GLfloat xLook, yLook, zLook;
 
 
 	// Rotation Variables
+	GLfloat cameraPositionIncrement;
 	bool altKeyDown;
-	GLfloat mousePosX, mousePosY;
 	GLfloat oldMousePosX, oldMousePosY;
+	GLfloat mousePosX, mousePosY;
 	GLfloat yRotate, xRotate;
+	GLfloat angleIncrementX, angleIncrementY ;
+	GLfloat mouseRotationX, mouseRotationY;
 
 public:
 
-	Camera();									// Constructor
-	~Camera();									// Destructor
+	Camera();									// Constructor	
 	void Moving();								// Move camera function
 	void setInitRotate(GLfloat x, GLfloat y);	// Set initial rotation values for Glulookat
 	void rotateX();								// Function to calculate x Rotation

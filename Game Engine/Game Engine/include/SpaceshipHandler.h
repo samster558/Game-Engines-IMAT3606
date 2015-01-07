@@ -7,7 +7,6 @@
 
 #include <glm/glm.hpp>
 
-
 #include "Spaceship.h"
 
 class SpaceshipHandler

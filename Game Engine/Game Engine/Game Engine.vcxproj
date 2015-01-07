@@ -11,13 +11,13 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\Mortality.cpp" />
     <ClCompile Include="src\SpaceshipHandler.cpp" />
     <ClCompile Include="src\GameObject.cpp" />
     <ClCompile Include="src\Lighting.cpp" />
     <ClCompile Include="src\Main.cpp" />
     <ClCompile Include="src\Model.cpp" />
     <ClCompile Include="src\Camera.cpp" />
+    <ClCompile Include="src\Renderable.cpp" />
     <ClCompile Include="src\Spaceship.cpp" />
     <ClCompile Include="src\Scene.cpp" />
     <ClCompile Include="src\tinyxml.cpp" />
@@ -25,12 +25,12 @@
     <ClCompile Include="src\tinyxmlparser.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="include\Mortality.h" />
     <ClInclude Include="include\SpaceshipHandler.h" />
     <ClInclude Include="include\GameObject.h" />
     <ClInclude Include="include\Lighting.h" />
     <ClInclude Include="include\Model.h" />
     <ClInclude Include="include\Camera.h" />
+    <ClInclude Include="include\Renderable.h" />
     <ClInclude Include="include\Spaceship.h" />
     <ClInclude Include="include\Scene.h" />
   </ItemGroup>

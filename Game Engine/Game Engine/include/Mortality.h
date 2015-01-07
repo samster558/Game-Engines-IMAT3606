@@ -1,6 +1,3 @@
-#ifndef MORTALITY_H
-#define MORTALITY_H
-
 class Mortality
 {
 protected:
@@ -15,5 +12,3 @@ public:
 
 
 };
-
-#endif // MORTALITY_H
