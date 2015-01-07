@@ -62,7 +62,7 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>$(SolutionDir)\SFML-2.1\include;$(SolutionDir)\Game Engine\include;$(SolutionDir)\Game Engine\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)\SFML-2.1\include;$(SolutionDir)\Game Engine\include;$(SolutionDir)\Game Engine\src;C:\Users\Sam\Documents\University Work\Year 3 - Work Done At Home\Shader Programming\IMAT3111_Libs\glm;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>SFML_STATIC;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>

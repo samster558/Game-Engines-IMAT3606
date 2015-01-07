@@ -9,6 +9,10 @@
 #include <SFML/OpenGL.hpp>
 #include <iostream>
 
+#include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/type_ptr.hpp>
+
 using namespace std;
 
 class Camera
@@ -38,6 +42,8 @@ public:
 	void setInitRotate(GLfloat x, GLfloat y);	// Set initial rotation values for Glulookat
 	void rotateX();								// Function to calculate x Rotation
 	void rotateY();								// Function to calculate y Rotation
+	void pan();
+	void zoom();
 
 	void setPosition(GLfloat xpos, GLfloat ypos, GLfloat zpos);
 };
