@@ -1,0 +1,4 @@
+Campus/Models/gatewayHouse.obj  45  -1  -50  0  0  0  2  5  2 Campus/Textures/gatewayTexture.raw
+Campus/Models/hawthorne.obj  0  -1  -50  0  0  0  2  2  2 Campus/Textures/hawthorneTexture.raw
+Campus/Models/TrinityHouse.obj  -25  -1  -50  0  57  0  1  1  1 Campus/Textures/trinityHouseTexture.raw
+Campus/Models/InnovationBuilding.obj  25  -1  -75  0  57  0  1  1.2  1 Campus/Textures/gatewayTexture.raw
