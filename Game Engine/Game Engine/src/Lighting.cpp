@@ -2,7 +2,7 @@
 
 Lighting::Lighting()
 {
-	 //light 0 properties
+	//light 0 properties
 	//  GLfloat light_ambient[] = {0.0, 0.0, 0.0, 1.0};
 	 GLfloat light_diffuse[] = {0.5, 0.5, 0.5, 1.0};
 	 GLfloat light_position[] = {0, 0, 30, 1.0}; // 4th parameter is point light yes = 1 no = 0

@@ -38,7 +38,7 @@ bool Model::loadModel(string fileName) //load model function
 	//error message if file could not open
 	if(!objectFile.is_open())
 	{
-		cout<<"file not found"<<endl;
+		cout<<"file not found"<<endl<<endl;
 		return false;
 	}
 
@@ -178,30 +178,28 @@ bool Model::loadTexture(string fileName) //load texture from file
 	textureFile.open(fileName,ios::binary);
 	if (!textureFile)
 	{
-		cout<< "error opening texture: "<<fileName<<endl;
+		cout<< "error opening texture: "<<fileName<<endl<<endl;
 		return false;
 	}
 	
 	textureFile.read(textureData,256*256*3);
 	textureFile.close();
+		
+	glGenTextures(1, textureID);
+
 	return true;
 }
 
 void Model::draw()
 {
 	glPushMatrix();
-	glEnableClientState(GL_VERTEX_ARRAY);
-	glEnableClientState(GL_NORMAL_ARRAY);
-	glEnable(GL_TEXTURE_2D);
-	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+	
 	glVertexPointer(3, GL_FLOAT, 0, &vertices[0]); 
 	glNormalPointer(GL_FLOAT,0,&normals[0]);
 	glTexCoordPointer(2, GL_FLOAT, 0, &textures[0]);
 	
-	glGenTextures(1, textureID);
 	glBindTexture(GL_TEXTURE_2D,textureID[0]);
 	glTexImage2D(GL_TEXTURE_2D,0,3,256,256,0,GL_RGB,GL_UNSIGNED_BYTE,textureData);
-
 		
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER,GL_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER,GL_LINEAR);
@@ -214,16 +212,11 @@ void Model::draw()
 	glRotatef(yRotate,0.f,1.f,0.f);
 	//glRotatef(zRotate,0.f,0.f,1.f);
 
-
 	if(xScale > 0) glScalef(xScale, 1, 1);
 	if(yScale > 0) glScalef(1, yScale, 1);
 	if(zScale > 0) glScalef(1, 1, zScale);
 
 	glDrawArrays(GL_TRIANGLES,0,(GLsizei) (vertices.size()/3));
 
-	glDisableClientState(GL_VERTEX_ARRAY);
-	glDisableClientState(GL_NORMAL_ARRAY);
-	glDisableClientState(GL_TEXTURE_COORD_ARRAY);
 	glPopMatrix();
-	glDisable(GL_TEXTURE_2D);
 }

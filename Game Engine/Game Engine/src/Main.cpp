@@ -34,7 +34,7 @@ int main()
 	Scene scene;
 	scene.modelConstructor("Campus/Scene.txt");
 
-	Lighting lightZero; // Setup in constructor
+	// Lighting lightZero; // Setup in constructor
 
 
 	// Camera cameraTwo;
@@ -51,7 +51,7 @@ int main()
 	cameraOne.setPosition(0,0,-20);
 
 	Camera cameraTwo;
-	cameraTwo.setPosition(0,30,-40);
+	cameraTwo.setPosition(20,30,-20);
 
 	//set initial rotate value for gluLookAt	
 	cameraOne.setInitRotate(0.f,0.f);
@@ -88,27 +88,12 @@ int main()
 	cout<<"DMU Campus"<<endl;
 	cout<<"To Move around the scene, use W,A,S,D"<<endl;
 	cout<<"To rotate the camera, hold down alt and move the mouse"<<endl;
-	cout<<"To toggle between 3D and normal, press Q to activate and E to turn off"<<endl;
 	cout<<"To toggle lights on and off, use Z and X"<<endl;
-
-
-    // set up a bool to toggle between 3d and non
-	bool threeDActive = false;
 
 	//************************************************************
 	// Start game loop
     while (App.isOpen())
     {
-
-		//toggle 3D mode
-		if(sf::Keyboard::isKeyPressed(sf::Keyboard::Q))
-		{
-			if(threeDActive == false){threeDActive = true;}
-		}
-		if(sf::Keyboard::isKeyPressed(sf::Keyboard::E))
-		{
-			if(threeDActive == true){threeDActive = false;}
-		}
 		if(sf::Keyboard::isKeyPressed(sf::Keyboard::C))
 		{
 			if(activeCamera == 1)
@@ -181,8 +166,8 @@ int main()
 			}
 
 			//Drawing Scene of object models
-			if(threeDActive == false)scene.drawScene();
-			if(threeDActive == true)scene.draw3D();
+			scene.drawScene();
+			
 			
 			Clock.restart();
 		}
