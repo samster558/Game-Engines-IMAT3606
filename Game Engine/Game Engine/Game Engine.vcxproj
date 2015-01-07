@@ -11,7 +11,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\CGfxOpenGL.cpp" />
+    <ClCompile Include="src\RobotHandler.cpp" />
     <ClCompile Include="src\GameObject.cpp" />
     <ClCompile Include="src\Lighting.cpp" />
     <ClCompile Include="src\Main.cpp" />
@@ -25,7 +25,7 @@
     <ClCompile Include="src\tinyxmlparser.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="include\CGfxOpenGL.h" />
+    <ClInclude Include="include\RobotHandler.h" />
     <ClInclude Include="include\GameObject.h" />
     <ClInclude Include="include\Lighting.h" />
     <ClInclude Include="include\Model.h" />

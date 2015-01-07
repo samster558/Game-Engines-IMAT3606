@@ -70,7 +70,7 @@ void Scene::loadAttributesFromElement(TiXmlElement* element)
 	attr = element->Attribute("xTranslate");
 	if(attr != NULL)
 	{
-		cout << elemName << " xTranslate is " << attr << endl;
+		// cout << elemName << " xTranslate is " << attr << endl;
 
 		double temp;
 
@@ -83,7 +83,7 @@ void Scene::loadAttributesFromElement(TiXmlElement* element)
 	attr = element->Attribute("yTranslate");
 	if(attr != NULL)
 	{
-		cout << elemName << " yTranslate " << attr << endl;
+		// cout << elemName << " yTranslate " << attr << endl;
 
 		double temp;
 
@@ -96,7 +96,7 @@ void Scene::loadAttributesFromElement(TiXmlElement* element)
 	attr = element->Attribute("zTranslate");
 	if(attr != NULL)
 	{
-		cout << elemName << " zTranslate is " << attr << endl;
+		// cout << elemName << " zTranslate is " << attr << endl;
 
 		double temp;
 
@@ -109,7 +109,7 @@ void Scene::loadAttributesFromElement(TiXmlElement* element)
 	attr = element->Attribute("xRotate");
 	if(attr != NULL)
 	{
-		cout << elemName << " xRotate is " << attr << endl;
+		// cout << elemName << " xRotate is " << attr << endl;
 
 		double temp;
 
@@ -122,7 +122,7 @@ void Scene::loadAttributesFromElement(TiXmlElement* element)
 	attr = element->Attribute("yRotate");
 	if(attr != NULL)
 	{
-		cout << elemName << " yRotate is " << attr << endl;
+		// cout << elemName << " yRotate is " << attr << endl;
 
 		double temp;
 
@@ -135,7 +135,7 @@ void Scene::loadAttributesFromElement(TiXmlElement* element)
 	attr = element->Attribute("zRotate");
 	if(attr != NULL)
 	{
-		cout << elemName << " zRotate is " << attr << endl;
+		// cout << elemName << " zRotate is " << attr << endl;
 
 		double temp;
 
@@ -148,7 +148,7 @@ void Scene::loadAttributesFromElement(TiXmlElement* element)
 	attr = element->Attribute("xScale");
 	if(attr != NULL)
 	{
-		cout << elemName << " xScale is " << attr << endl;
+		// cout << elemName << " xScale is " << attr << endl;
 
 		double temp;
 
@@ -161,7 +161,7 @@ void Scene::loadAttributesFromElement(TiXmlElement* element)
 	attr = element->Attribute("yScale");
 	if(attr != NULL)
 	{
-		cout << elemName << " yScale is " << attr << endl;
+		// cout << elemName << " yScale is " << attr << endl;
 
 		double temp;
 
@@ -173,7 +173,7 @@ void Scene::loadAttributesFromElement(TiXmlElement* element)
 	attr = element->Attribute("zScale");
 	if(attr != NULL)
 	{
-		cout << elemName << " zScale is " << attr << endl;
+		// cout << elemName << " zScale is " << attr << endl;
 
 		double temp;
 

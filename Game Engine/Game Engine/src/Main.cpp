@@ -6,20 +6,19 @@
 #include "Lighting.h"
 #include "GameObject.h"
 
-#include "CGfxOpenGL.h"
+#include "RobotHandler.h"
 #include "Robot.h"
 
 #include <vector>
 #include <math.h>
 #include <string>
 
-
 #define SC_WIDTH 800
 #define SC_HEIGHT 800
 #define REFRESH_RATE 0.005f
 using namespace std;
 
-CGfxOpenGL *g_glRender = NULL;
+RobotHandler *g_glRender = NULL;
 
 int main()
 {
@@ -27,8 +26,10 @@ int main()
 	sf::ContextSettings settings;
 	settings.antialiasingLevel = 8;
     //Create the main window
-	sf::Window App(sf::VideoMode(SC_WIDTH, SC_HEIGHT, 32), "Game Engine");    // Create a clock for measuring time elapsed
-	
+	sf::RenderWindow App(sf::VideoMode(SC_WIDTH, SC_HEIGHT, 32), "Game Engine");    
+	//sf::RenderWindow window(sf::VideoMode(SC_WIDTH, SC_HEIGHT), "Dave The Plumber"); // Open main window 
+
+	// Create a clock for measuring time elapsed
     sf::Clock Clock;
 	
 	const float rotateIncrement = 0.1f;
@@ -38,10 +39,10 @@ int main()
 	//************************************************************
 	
 	Scene scene;
-	scene.modelConstructor("src/test.xml");
+	scene.modelConstructor("model xml/level1.xml");
 
 	GameObject lightZero;
-//	lightZero.m_lighting->setPosition(0,0,0,0);
+	//	lightZero.m_lighting->setPosition(0,0,0,0);
 
 	// Camera cameraTwo;
 	 
@@ -69,16 +70,11 @@ int main()
 	//*************************************************************
 	// Robot Setup
 
-	g_glRender = new CGfxOpenGL;
+	g_glRender = new RobotHandler;
 
 	g_glRender->SetupProjection(SC_WIDTH, SC_HEIGHT);
 
 	g_glRender->Init();
-
-
-
-	
-	
 
 	//*************************************************************
     //Set color and depth clear value
@@ -102,17 +98,56 @@ int main()
 
 	//************************************************************
 
-	//Output to console the software controls
-	cout<<"DMU Campus"<<endl;
-	cout<<"Edit this with movement controls"<<endl;
-	cout<<"To rotate the camera, hold down the right mouse button and move the mouse"<<endl;
-	cout<<"To toggle lights on and off, use Z and X"<<endl;
+	std::string stringOfMessages[4]; // Array to hold the string messages seen on the screen
+	sf::Font gameFont; // The font used for the game
+	sf::Text message[4]; // The text messages used for the game
+
+	int score = 0;
+	int lives = 3;
+
+	 // Initialise the messages
+
+	stringOfMessages[0] = "Space Shooter";
+	stringOfMessages[1] = "Score: " +std::to_string(score);
+	stringOfMessages[2] = "Lives: " +std::to_string(lives);
+	stringOfMessages[3] = "Congratulations";
+
+	// Load the font for the text
+
+	gameFont.loadFromFile("./fonts/Acknowtt.ttf");
+
+	// Set the font and character size of the messages
+
+	for (int i=0; i<4; i++)
+	{
+		 message[i].setFont(gameFont);
+		 message[i].setCharacterSize(30);
+		 message[i].setString(stringOfMessages[i]);
+	}
+
+	// Set the positions of the messages
+
+	message[0].setPosition(10,5);
+	message[1].setPosition(10,80);
+	message[2].setPosition(10,40);
+	message[3].setPosition(560,5);
+
+	//************************************************************
+
+	// Output to console the software controls
+	cout << "DMU Campus" << endl;
+	cout << "Use Q and E to turn the robot" << endl;
+	cout << "Use W and S to move the robot forward and back" << endl;
+	cout << "Use C and V to switch between camera one and two" << endl;
+	cout << "To rotate the camera, hold down the left mouse button and move the mouse" << endl;
+	cout << "To pan the camera, hold down the right mouse button and move the mouse" << endl;
+	cout << "To zoom the camera, use the up and down keys" << endl;
+	cout << "To toggle lights on and off, use Z and X" << endl;
 
 	//************************************************************
 	// Start game loop
     while (App.isOpen())
     {
-
 		if(sf::Keyboard::isKeyPressed(sf::Keyboard::W))
 		{
 			g_glRender->WalkForward();
@@ -133,9 +168,6 @@ int main()
 			g_glRender->TurnRobotRight(0.2);
 		}
 
-
-
-
 		if(sf::Keyboard::isKeyPressed(sf::Keyboard::C))
 		{
 			if(activeCamera == 1)
@@ -143,6 +175,7 @@ int main()
 				activeCamera = 2;
 			}
 		}
+
 		if(sf::Keyboard::isKeyPressed(sf::Keyboard::V))
 		{
 			if(activeCamera == 2)
@@ -177,13 +210,11 @@ int main()
             // Resize event : adjust viewport
             if (Event.type == sf::Event::Resized)
                 glViewport(0, 0, Event.size.width, Event.size.height);
-	
         }
 
         // Set the active window before using OpenGL commands
         App.setActive();
 		
-    
 		if((float)Clock.getElapsedTime().asSeconds()>REFRESH_RATE){
 			// Clear colour and depth buffer
 			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -211,7 +242,19 @@ int main()
 
 			// Draw Robot
 			g_glRender->Render();
+
+			// push GL States to preserve them
+			App.pushGLStates();
+
+			// Draw the UI messages
+			for(int i=0; i<4; i++)
+			{
+				App.draw(message[i]);
+			}
 			
+			// pop GL States when we have finished drawing the messages
+			App.popGLStates();
+
 			// Restart the clock
 			Clock.restart();
 		}

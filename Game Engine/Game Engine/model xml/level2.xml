@@ -1,0 +1,58 @@
+<?xml version="1.0" ?>
+<root>		
+	<Element1 modelFileLocation="Campus/Models/Planet.obj"
+			  xTranslate="0"
+			  yTranslate="20"
+			  zTranslate="-50"
+			  xRotate="0"
+			  yRotate="0"
+			  zRotate="0"
+			  xScale="10"
+			  yScale="10"
+			  zScale="10"
+			  textureFileLocation="Campus/Textures/textureTest.raw"
+	/>
+			  
+	<Element2 modelFileLocation="Campus/Models/Planet.obj"
+			  xTranslate="0"
+			  yTranslate="-1"
+			  zTranslate="-50"
+			  xRotate="0"
+			  yRotate="0"
+			  zRotate="0"
+			  xScale="10"
+			  yScale="10"
+			  zScale="10"
+			  
+	/>
+	
+	<Element3 modelFileLocation="Campus/Models/Planet.obj"
+			  xTranslate="20"
+			  yTranslate="-1"
+			  zTranslate="-50"
+			  xRotate="0"
+			  yRotate="0"
+			  zRotate="0"
+			  xScale="10"
+			  yScale="10"
+			  zScale="10"
+			  
+	/>
+	
+	<Element3 modelFileLocation="Campus/Models/Planet.obj"
+			  xTranslate="-20"
+			  yTranslate="-1"
+			  zTranslate="-50"
+			  xRotate="0"
+			  yRotate="0"
+			  zRotate="0"
+			  xScale="10"
+			  yScale="10"
+			  zScale="10"
+			  
+	/>
+	
+	
+	
+	
+</root>

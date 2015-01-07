@@ -125,14 +125,14 @@ void Robot::DrawRobot()
 		DrawHead(1.0f, 2.0f, 0.0f);		
 		DrawTorso(1.5f, 0.0f, 0.0f);
 
-		// move the left arm away from the torso and rotate it to give "walking" effect
+		// move the right arm away from the torso and rotate it to give "walking" effect
 		glPushMatrix();
 			glTranslatef(0.0f, -0.5f, 0.0f);
 			glRotatef(armAngles[LEFT], 1.0f, 0.0f, 0.0f);
 			DrawArm(2.5f, 0.0f, -0.5f);
 		glPopMatrix();
 
-		// move the right arm away from the torso and rotate it to give "walking" effect
+		// move the left arm away from the torso and rotate it to give "walking" effect
 		glPushMatrix();
 			glTranslatef(0.0f, -0.5f, 0.0f);
 			glRotatef(armAngles[RIGHT], 1.0f, 0.0f, 0.0f);
@@ -153,7 +153,9 @@ void Robot::DrawRobot()
 			DrawLeg(1.5f, -5.0f, -0.5f);
 		glPopMatrix();
 
+		
 	glPopMatrix();	// pop back to original coordinate system
+
 }
 
 void Robot::Prepare(float dt)
