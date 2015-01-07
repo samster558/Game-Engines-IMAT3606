@@ -1,6 +1,6 @@
 <?xml version="1.0" ?>
 <root>		
-	<Element1 modelFileLocation="Campus/Models/Planet.obj"
+	<Element1 modelFileLocation="scene/Models/Planet.obj"
 			  xTranslate="0"
 			  yTranslate="20"
 			  zTranslate="-50"
@@ -10,10 +10,10 @@
 			  xScale="10"
 			  yScale="10"
 			  zScale="10"
-			  textureFileLocation="Campus/Textures/textureTest.raw"
+			  textureFileLocation="scene/Textures/textureTest.raw"
 	/>
 			  
-	<Element2 modelFileLocation="Campus/Models/Planet.obj"
+	<Element2 modelFileLocation="scene/Models/Planet.obj"
 			  xTranslate="0"
 			  yTranslate="-1"
 			  zTranslate="-50"

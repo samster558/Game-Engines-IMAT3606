@@ -7,22 +7,22 @@
 
 #include <glm/glm.hpp>
 
-#include "Robot.h"
+#include "Spaceship.h"
 
-class RobotHandler
+class SpaceshipHandler
 {
 private:
-	Robot *theRobot;
+	Spaceship* theSpaceship;
 	float rotationAngle;
 
 	int m_windowWidth;
 	int m_windowHeight;
 
-	float robotX, robotY, robotZ;
+	float spaceshipX, spaceshipY, spaceshipZ;
 
 public:
-	RobotHandler();
-	virtual ~RobotHandler();
+	SpaceshipHandler();
+	virtual ~SpaceshipHandler();
 
 	bool Init();
 	bool Shutdown();
@@ -32,8 +32,8 @@ public:
 	void Prepare(float dt);
 	void Render();
 
-	void TurnRobotLeft(float);
-	void TurnRobotRight(float);
+	void TurnSpaceshipLeft(float);
+	void TurnSpaceshipRight(float);
 
 	void WalkForward();
 	void WalkBackwards();

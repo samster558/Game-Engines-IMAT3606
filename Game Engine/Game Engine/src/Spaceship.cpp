@@ -5,9 +5,9 @@
 #include <gl/gl.h>
 #include <gl/glu.h>
 
-#include "Robot.h"
+#include "Spaceship.h"
 
-Robot::Robot()
+Spaceship::Spaceship()
 {
 	armAngles[LEFT] = 0.0;
 	armAngles[RIGHT] = 0.0;
@@ -23,11 +23,11 @@ Robot::Robot()
 	walkCounter = 0;
 }
 
-Robot::~Robot()
+Spaceship::~Spaceship()
 {
 }
 
-void Robot::DrawCube(float xPos, float yPos, float zPos)
+void Spaceship::DrawCube(float xPos, float yPos, float zPos)
 {
 	glPushMatrix();
 		glTranslatef(xPos, yPos, zPos);
@@ -60,7 +60,7 @@ void Robot::DrawCube(float xPos, float yPos, float zPos)
 	glPopMatrix();
 }
 
-void Robot::DrawArm(float xPos, float yPos, float zPos)
+void Spaceship::DrawArm(float xPos, float yPos, float zPos)
 {
 	glPushMatrix();
 		glColor3f(1.0f, 0.0f, 0.0f);	// red
@@ -70,44 +70,47 @@ void Robot::DrawArm(float xPos, float yPos, float zPos)
 	glPopMatrix();
 }
 
-void Robot::DrawHead(float xPos, float yPos, float zPos)
+void Spaceship::DrawHead(float xPos, float yPos, float zPos)
 {
 	glPushMatrix();
 		glColor3f(1.0f, 1.0f, 1.0f);	// white
 		glTranslatef(xPos, yPos, zPos);
-		glScalef(2.0f, 2.0f, 2.0f);		// head is a 2x2x2 cube
-		DrawCube(0.0f, 0.0f, 0.0f);
+		glScalef(2.0f, 2.0f, 1.0f);		// head is a 2x2x1 cube
+		DrawCube(0.0f, -1.0f, -5.0f);
+
 	glPopMatrix();
 }
 
-void Robot::DrawTorso(float xPos, float yPos, float zPos)
+void Spaceship::DrawTorso(float xPos, float yPos, float zPos)
 {
 	glPushMatrix();
 		glColor3f(0.0f, 0.0f, 1.0f);	// blue
 		glTranslatef(xPos, yPos, zPos);
-		glScalef(3.0f, 5.0f, 2.0f);		// torso is a 3x5x2 cube
+		glScalef(3.0f, 2.0f, 5.0f);		// torso is a 3x5x2 cube
 		DrawCube(0.0f, 0.0f, 0.0f);
 	glPopMatrix();
 }
 
-void Robot::DrawLeg(float xPos, float yPos, float zPos)
+void Spaceship::DrawLeg(float xPos, float yPos, float zPos)
 {
 	glPushMatrix();
 		glTranslatef(xPos, yPos, zPos);
-		
+
+		/*
 		// draw the foot
 		glPushMatrix();
 			glTranslatef(0.0f, -0.5f, 0.0f);
 			DrawFoot(0.0f, -5.0f, 0.0f);
 		glPopMatrix();		
-		
+		*/
+
 		glScalef(1.0f, 5.0f, 1.0f);		// leg is a 1x5x1 cube
 		glColor3f(1.0f, 1.0f, 0.0f);	// yellow
 		DrawCube(0.0f, 0.0f, 0.0f);
 	glPopMatrix();
 }
 
-void Robot::DrawFoot(float xPos, float yPos, float zPos)
+void Spaceship::DrawFoot(float xPos, float yPos, float zPos)
 {
 	glPushMatrix();
 		glColor3f(1.0f, 1.0f, 1.0f);
@@ -117,7 +120,7 @@ void Robot::DrawFoot(float xPos, float yPos, float zPos)
 	glPopMatrix();
 }
 
-void Robot::DrawRobot()
+void Spaceship::DrawSpaceship()
 {
 	glPushMatrix();	
 
@@ -125,32 +128,36 @@ void Robot::DrawRobot()
 		DrawHead(1.0f, 2.0f, 0.0f);		
 		DrawTorso(1.5f, 0.0f, 0.0f);
 
-		// move the right arm away from the torso and rotate it to give "walking" effect
+		// move the right red block
 		glPushMatrix();
 			glTranslatef(0.0f, -0.5f, 0.0f);
-			glRotatef(armAngles[LEFT], 1.0f, 0.0f, 0.0f);
+			glRotatef(90.0f, 1.0f, 0.0f, 0.0f);
 			DrawArm(2.5f, 0.0f, -0.5f);
 		glPopMatrix();
 
-		// move the left arm away from the torso and rotate it to give "walking" effect
+		// move the left red block
 		glPushMatrix();
 			glTranslatef(0.0f, -0.5f, 0.0f);
-			glRotatef(armAngles[RIGHT], 1.0f, 0.0f, 0.0f);
+			glRotatef(90.0f, 1.0f, 0.0f, 0.0f);
 			DrawArm(-1.5f, 0.0f, -0.5f);
 		glPopMatrix();
 
-		// move the left leg away from the torso and rotate it to give "walking" effect
+		// move the left yellow/white block
 		glPushMatrix();					
-			glTranslatef(0.0f, -0.5f, 0.0f);
-			glRotatef(legAngles[LEFT], 1.0f, 0.0f, 0.0f);
-			DrawLeg(-0.5f, -5.0f, -0.5f);
+			glTranslatef(-1.5f, -2.0f, -5.0f);
+			glRotatef(-90.0f, 1.0f, 0.0f, 0.0f);
+			glRotatef(90.0f, 0.0f, 1.0f, 0.0f);
+			glScalef(1.0f, 1.0f, 0.5f);
+			DrawLeg(-0.5f, 0.0f, -0.5f);
 		glPopMatrix();
 
-		// move the right leg away from the torso and rotate it to give "walking" effect
+		// move the right yellow/white
 		glPushMatrix();
-			glTranslatef(0.0f, -0.5f, 0.0f);
-			glRotatef(legAngles[RIGHT], 1.0f, 0.0f, 0.0f);
-			DrawLeg(1.5f, -5.0f, -0.5f);
+			glTranslatef(1.5f, -2.0f, -5.0f);
+			glRotatef(-90.0f, 1.0f, 0.0f, 0.0f);
+			glRotatef(-90.0f, 0.0f, 1.0f, 0.0f);
+			glScalef(1.0f, 1.0f, 0.5f);
+			DrawLeg(1.5f, 0.0f, -0.5f);
 		glPopMatrix();
 
 		
@@ -158,7 +165,7 @@ void Robot::DrawRobot()
 
 }
 
-void Robot::Prepare(float dt)
+void Spaceship::Prepare(float dt)
 {
 	// if leg is moving forward, increase angle, else decrease angle
 	for (char side = 0; side < 2; side++)
@@ -189,7 +196,7 @@ void Robot::Prepare(float dt)
 	}
 }
 
-void Robot::moveForward()
+void Spaceship::moveForward()
 {
 	if (walkCounter == 0 || walkCounter == 1 || walkCounter == 6 || walkCounter == 7)		// Move legs one way
 	{

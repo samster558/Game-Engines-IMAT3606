@@ -1,5 +1,5 @@
-#ifndef __ROBOT_H
-#define __ROBOT_H
+#ifndef __SPACESHIP_H
+#define __SPACESHIP_H
 
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
@@ -9,11 +9,11 @@
 const char BACKWARD_STATE = 0;
 const char FORWARD_STATE  = 1;
 
-// index constants for accessing arm and leg array data
+// index constants for accessing arm (red block) and leg (yellow block) array data
 const char LEFT  = 0;
 const char RIGHT = 1;
 
-class Robot
+class Spaceship
 {
 private:
 	char legStates[2];	
@@ -28,7 +28,7 @@ private:
 	// draws a unit cube
 	void DrawCube(float xPos, float yPos, float zPos);
 
-	// methods to draw the parts of the robot
+	// methods to draw the parts of the spaceship
 	void DrawArm(float xPos, float yPos, float zPos);
 	void DrawHead(float xPos, float yPos, float zPos);
 	void DrawTorso(float xPos, float yPos, float zPos);
@@ -37,13 +37,13 @@ private:
 
 public:
 
-	Robot();
-	virtual ~Robot();
+	Spaceship();
+	virtual ~Spaceship();
 
-	// draws the entire robot
-	void DrawRobot();
+	// draws the entire spaceship
+	void DrawSpaceship();
 
-	// updates the robot data
+	// updates the spaceship data
 	void Prepare(float dt);
 
 	void moveForward();

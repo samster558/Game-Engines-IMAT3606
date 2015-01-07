@@ -31,10 +31,10 @@
     <ClCompile Include="src\tinyxmlparser.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Robot.cpp">
+    <ClCompile Include="src\SpaceshipHandler.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\RobotHandler.cpp">
+    <ClCompile Include="src\Spaceship.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -57,10 +57,10 @@
     <ClInclude Include="include\Camera.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\Robot.h">
+    <ClInclude Include="include\SpaceshipHandler.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\RobotHandler.h">
+    <ClInclude Include="include\Spaceship.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

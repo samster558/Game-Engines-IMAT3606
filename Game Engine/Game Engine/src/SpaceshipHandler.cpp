@@ -5,27 +5,27 @@
 #include <gl/gl.h>
 #include <gl/glu.h>
 #include <math.h>
-#include "RobotHandler.h"
-#include "Robot.h"
+#include "SpaceshipHandler.h"
+#include "Spaceship.h"
 
 // disable implicit float-double casting
 #pragma warning(disable:4305)
 
-RobotHandler::RobotHandler()
+SpaceshipHandler::SpaceshipHandler()
 {
 }
 
-RobotHandler::~RobotHandler()
+SpaceshipHandler::~SpaceshipHandler()
 {
 }
 
-bool RobotHandler::Init()
+bool SpaceshipHandler::Init()
 {	
-	theRobot = new Robot;
+	theSpaceship = new Spaceship;
 
-	robotX = 0.0f;
-	robotY = 0.0f;
-	robotZ = -30.0f;
+	spaceshipX = 0.0f;
+	spaceshipY = 0.0f;
+	spaceshipZ = -30.0f;
 
 	rotationAngle = 0.0f;
 
@@ -36,14 +36,14 @@ bool RobotHandler::Init()
 	return true;
 }
 
-bool RobotHandler::Shutdown()
+bool SpaceshipHandler::Shutdown()
 {
-	delete theRobot;
+	delete theSpaceship;
 
 	return true;
 }
 
-void RobotHandler::SetupProjection(int width, int height)
+void SpaceshipHandler::SetupProjection(int width, int height)
 {
 	if (height == 0)					// don't want a divide by zero
 	{
@@ -64,25 +64,25 @@ void RobotHandler::SetupProjection(int width, int height)
 	m_windowHeight = height;
 }
 
-void RobotHandler::Prepare(float dt)
+void SpaceshipHandler::Prepare(float dt)
 {
 	rotationAngle += 0.0f * dt;					// increase our rotation angle counter
 	if (rotationAngle >= 360.0f)					// if we've gone in a circle, reset counter
 		rotationAngle = 0.0f;
 
-	theRobot->Prepare(dt);
+	theSpaceship->Prepare(dt);
 }
 
-void RobotHandler::Render()
+void SpaceshipHandler::Render()
 {
 	glPushMatrix();							// Put current matrix on stack
 		// glLoadIdentity();					// Reset matrix
-		glTranslatef(robotX, robotY, robotZ);	// Move to (0, 0, -30) starting point
+		glTranslatef(spaceshipX, spaceshipY, spaceshipZ);	// Move to (0, 0, -30) starting point
 
 		
-		glRotatef(rotationAngle, 0.0f, 1.0f, 0.0f);	// Rotate the robot on its y-axis
+		glRotatef(rotationAngle, 0.0f, 1.0f, 0.0f);	// Rotate the spaceship on its y-axis
 
-		theRobot->DrawRobot();	// Draw the robot
+		theSpaceship->DrawSpaceship();	// Draw the spaceship
 		
 		// Render code changed so that it does translate then rotate
 		// rather than translate then rotate then translate again (bad idea)
@@ -95,39 +95,39 @@ void RobotHandler::Render()
 }
 
 
-void RobotHandler::TurnRobotLeft(float angle)
+void SpaceshipHandler::TurnSpaceshipLeft(float angle)
 {
 	rotationAngle += angle;
 }
 
 
-void RobotHandler::TurnRobotRight(float angle)
+void SpaceshipHandler::TurnSpaceshipRight(float angle)
 {
 	rotationAngle -= angle;
 }
 
-void RobotHandler::WalkForward()
+void SpaceshipHandler::WalkForward()
 {
-	theRobot->moveForward();
+	theSpaceship->moveForward();
 
 	float speedScaler;
 
 	speedScaler = 0.02;		// Used to set the speed of movement
 
-	robotZ = robotZ - ((cos(rotationAngle * PI / 180)) * speedScaler);
+	spaceshipZ = spaceshipZ - ((cos(rotationAngle * PI / 180)) * speedScaler);
 
-	robotX = robotX - ((sin(rotationAngle * PI / 180)) * speedScaler);
+	spaceshipX = spaceshipX - ((sin(rotationAngle * PI / 180)) * speedScaler);
 }
 
-void RobotHandler::WalkBackwards()
+void SpaceshipHandler::WalkBackwards()
 {
-	theRobot->moveForward();
+	theSpaceship->moveForward();
 
 	float speedScaler;
 
 	speedScaler = 0.02;		// Used to set the speed of movement
 
-	robotZ = robotZ + ((cos(rotationAngle * PI / 180)) * speedScaler);
+	spaceshipZ = spaceshipZ + ((cos(rotationAngle * PI / 180)) * speedScaler);
 
-	robotX = robotX + ((sin(rotationAngle * PI / 180)) * speedScaler);
+	spaceshipX = spaceshipX + ((sin(rotationAngle * PI / 180)) * speedScaler);
 }
