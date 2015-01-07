@@ -18,8 +18,6 @@
 #define REFRESH_RATE 0.005f
 using namespace std;
 
-SpaceshipHandler *g_glRender = NULL;
-
 int main()
 {
 	//************************************************************
@@ -45,11 +43,34 @@ int main()
 	Scene scene;
 	scene.modelConstructor("scene/XML/level1.xml");
 
-	GameObject lightZero;
-	//	lightZero.m_lighting->setPosition(0,0,0,0);
+	std::string light = "Lighting";
+	std::string camera = "Camera";
+	std::string mortality = "Mortality";
+	std::string spaceshipHandler = "SpaceshipHandler";
 
-	// Camera cameraTwo;
-	 
+	/*
+	GameObject lightZero;
+	lightZero.setComponent(light);
+	lightZero.getLight()->setPosition(0,0,0,0);
+	*/
+	
+	// create two cameras and initialise their position and rotation
+
+	GameObject cameraOne;
+	cameraOne.setComponent(camera);
+	cameraOne.getCamera()->setPosition(0,0,-20);
+	cameraOne.getCamera()->setInitRotate(0.f,0.f);
+
+	GameObject cameraTwo;
+	cameraTwo.setComponent(camera);
+	cameraTwo.getCamera()->setPosition(20,30,-20);
+	cameraTwo.getCamera()->setInitRotate(0.f,0.f);
+
+	// variable to store which camera is currently being used
+
+	int activeCamera;
+	activeCamera = 1;
+
 	 //material properties
 	 GLfloat mat_diffuse[4] = {0.75, 0.75, 0.75, 1.0};
 	 GLfloat mat_specular[] = {0.6, 0.6, 0.6, 1.0 };
@@ -57,28 +78,19 @@ int main()
 
 	 glShadeModel (GL_SMOOTH); // Smooth or flat
 
-	//create a camera with movement controls 
-	Camera cameraOne;
-	cameraOne.setPosition(0,0,-20);
 
-	Camera cameraTwo;
-	cameraTwo.setPosition(20,30,-20);
-
-	//set initial rotate value for gluLookAt	
-	cameraOne.setInitRotate(0.f,0.f);
-	cameraTwo.setInitRotate(0.f,0.f);
-
-	int activeCamera;
-	activeCamera = 1;
 
 	//*************************************************************
 	// SpaceshipSetup
 
-	g_glRender = new SpaceshipHandler;
+	GameObject player;
 
-	g_glRender->SetupProjection(SC_WIDTH, SC_HEIGHT);
+	player.setComponent(mortality);						// Give the player a mortality component
+	player.getMortality()->setHealth(100);				// Set the player's health to 100
 
-	g_glRender->Init();
+	player.setComponent(spaceshipHandler);				// Give the player a spaceshipHandler component
+	player.getSpaceshipHandler()->SetupProjection(SC_WIDTH, SC_HEIGHT);
+	player.getSpaceshipHandler()->Init();
 
 	//*************************************************************
     //Set color and depth clear value
@@ -192,7 +204,7 @@ int main()
 
 		if(gameState == pause)
 		{
-				glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 			// push GL States to preserve them
 			App.pushGLStates();
 
@@ -214,22 +226,22 @@ int main()
 	 {
 		if(sf::Keyboard::isKeyPressed(sf::Keyboard::W))		// Move forward
 		{
-			g_glRender->WalkForward();
+			player.getSpaceshipHandler()->WalkForward();
 		}
 
 		if(sf::Keyboard::isKeyPressed(sf::Keyboard::S))		// Move backwards
 		{
-			g_glRender->WalkBackwards();
+			player.getSpaceshipHandler()->WalkBackwards();
 		}
 
 		if(sf::Keyboard::isKeyPressed(sf::Keyboard::Q))		// Turn left
 		{
-			g_glRender->TurnSpaceshipLeft(0.2);
+			player.getSpaceshipHandler()->TurnSpaceshipLeft(0.2);
 		}
 
 		if(sf::Keyboard::isKeyPressed(sf::Keyboard::E))		// Turn right
 		{
-			g_glRender->TurnSpaceshipRight(0.2);
+			player.getSpaceshipHandler()->TurnSpaceshipRight(0.2);
 		}
 
 		if(sf::Keyboard::isKeyPressed(sf::Keyboard::P))		// Pause the game
@@ -279,11 +291,11 @@ int main()
 			
 			if(activeCamera == 1)
 			{
-				cameraOne.Moving();
+				cameraOne.getCamera()->Moving();
 			}
 			else if(activeCamera == 2)
 			{
-				cameraTwo.Moving();
+				cameraTwo.getCamera()->Moving();
 			}
 			else
 			{
@@ -294,7 +306,7 @@ int main()
 			 scene.drawScene();
 
 			// Draw Spaceship
-			g_glRender->Render();
+			player.getSpaceshipHandler()->Render();
 
 			// push GL States to preserve them
 			App.pushGLStates();
@@ -317,7 +329,7 @@ int main()
     }
 
    }
-	delete g_glRender;
+	delete player.getSpaceshipHandler();
 
     return EXIT_SUCCESS;
 }

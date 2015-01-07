@@ -2,7 +2,6 @@
 
 Camera::Camera()
 {
-	cameraPositionIncrement = 0.1f;
 	xLook = 0.f;
 	yLook = 0.f;
 	zLook = -30.0f;
@@ -10,6 +9,11 @@ Camera::Camera()
 	yCameraPosition = 0.f;
 	xCameraPosition = 0.f;
 	zCameraPosition = 0.f;
+}
+
+Camera::~Camera()
+{
+
 }
 
 void Camera::setInitRotate(GLfloat x, GLfloat y)
