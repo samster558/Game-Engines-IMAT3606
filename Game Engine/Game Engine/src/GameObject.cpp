@@ -2,6 +2,7 @@
 
 GameObject::GameObject()
 {
+	// Components are set to null pointers by default
 	m_camera = nullptr;
 	m_lighting = nullptr;
 	m_mortality = nullptr;

@@ -20,6 +20,7 @@ Spaceship::Spaceship()
 	legStates[LEFT] = FORWARD_STATE;
 	legStates[RIGHT] = BACKWARD_STATE;
 
+	rotateFire = 0;
 	walkCounter = 0;
 }
 
@@ -60,20 +61,10 @@ void Spaceship::DrawCube(float xPos, float yPos, float zPos)
 	glPopMatrix();
 }
 
-void Spaceship::DrawArm(float xPos, float yPos, float zPos)
-{
-	glPushMatrix();
-		glColor3f(1.0f, 0.0f, 0.0f);	// red
-		glTranslatef(xPos, yPos, zPos);
-		glScalef(1.0f, 4.0f, 1.0f);		// arm is a 1x4x1 cube
-		DrawCube(0.0f, 0.0f, 0.0f);
-	glPopMatrix();
-}
-
 void Spaceship::DrawHead(float xPos, float yPos, float zPos)
 {
 	glPushMatrix();
-		glColor3f(1.0f, 1.0f, 1.0f);	// white
+		glColor3f(0.878f, 0.874f, 0.859f);	// steel
 		glTranslatef(xPos, yPos, zPos);
 		glScalef(2.0f, 2.0f, 1.0f);		// head is a 2x2x1 cube
 		DrawCube(0.0f, -1.0f, -5.0f);
@@ -84,38 +75,49 @@ void Spaceship::DrawHead(float xPos, float yPos, float zPos)
 void Spaceship::DrawTorso(float xPos, float yPos, float zPos)
 {
 	glPushMatrix();
-		glColor3f(0.0f, 0.0f, 1.0f);	// blue
+		glColor3f(0.878f, 0.874f, 0.859f);	// steel
 		glTranslatef(xPos, yPos, zPos);
 		glScalef(3.0f, 2.0f, 5.0f);		// torso is a 3x5x2 cube
 		DrawCube(0.0f, 0.0f, 0.0f);
 	glPopMatrix();
 }
 
-void Spaceship::DrawLeg(float xPos, float yPos, float zPos)
+void Spaceship::DrawWing(float xPos, float yPos, float zPos)
 {
 	glPushMatrix();
+		glColor3f(0.3, 0.3, 0.3);	
 		glTranslatef(xPos, yPos, zPos);
-
-		/*
-		// draw the foot
-		glPushMatrix();
-			glTranslatef(0.0f, -0.5f, 0.0f);
-			DrawFoot(0.0f, -5.0f, 0.0f);
-		glPopMatrix();		
-		*/
-
-		glScalef(1.0f, 5.0f, 1.0f);		// leg is a 1x5x1 cube
-		glColor3f(1.0f, 1.0f, 0.0f);	// yellow
+		glScalef(1.0f, 4.0f, 1.0f);		// arm is a 1x4x1 cube
 		DrawCube(0.0f, 0.0f, 0.0f);
 	glPopMatrix();
 }
 
-void Spaceship::DrawFoot(float xPos, float yPos, float zPos)
+void Spaceship::DrawCannon(float xPos, float yPos, float zPos)
 {
 	glPushMatrix();
-		glColor3f(1.0f, 1.0f, 1.0f);
 		glTranslatef(xPos, yPos, zPos);
-		glScalef(1.0f, 0.5f, 3.0f);
+		glScalef(1.0f, 5.0f, 1.0f);		// leg is a 1x5x1 cube
+		glColor3f(1.0f, 0.1f, 0.1f);	
+		DrawCube(0.0f, 0.0f, 0.0f);
+	glPopMatrix();
+}
+
+void Spaceship::DrawThruster(float xPos, float yPos, float zPos)
+{
+	glPushMatrix();
+		glColor3f(0.3f, 0.3f, 0.3f);
+		glTranslatef(xPos, yPos, zPos);
+		glScalef(1.0f, 0.5f, 2.5f);
+		DrawCube(0.0f, 0.0f, 0.0f);
+	glPopMatrix();
+}
+
+void Spaceship::DrawFire(float xPos, float yPos, float zPos)
+{
+	glPushMatrix();
+		glColor3f(1.0f, 0.5f, 0.0f);
+		glTranslatef(xPos, yPos, zPos);
+		glScalef(1.0f, 0.5f, 2.5f);
 		DrawCube(0.0f, 0.0f, 0.0f);
 	glPopMatrix();
 }
@@ -128,45 +130,71 @@ void Spaceship::DrawSpaceship()
 		DrawHead(1.0f, 2.0f, 0.0f);		
 		DrawTorso(1.5f, 0.0f, 0.0f);
 
-		// move the right red block
+		// move the right wing block
 		glPushMatrix();
-			glTranslatef(0.0f, -0.5f, 0.0f);
+			glTranslatef(-4.3f, -0.4f, -0.5f);
 			glRotatef(90.0f, 1.0f, 0.0f, 0.0f);
-			DrawArm(2.5f, 0.0f, -0.5f);
+			glScalef(3.0f, 1.0f, 1.0f);
+			DrawWing(2.5f, 0.0f, -0.5f);
 		glPopMatrix();
 
-		// move the left red block
+		// move the left wing block
 		glPushMatrix();
-			glTranslatef(0.0f, -0.5f, 0.0f);
+			glTranslatef(4.3f, -0.4f, -0.5f);
 			glRotatef(90.0f, 1.0f, 0.0f, 0.0f);
-			DrawArm(-1.5f, 0.0f, -0.5f);
+			glScalef(3.0f, 1.0f, 1.0f);
+			DrawWing(-1.5f, 0.0f, -0.5f);
 		glPopMatrix();
 
-		// move the left yellow/white block
+		// move the left cannon block
 		glPushMatrix();					
 			glTranslatef(-1.5f, -2.0f, -5.0f);
 			glRotatef(-90.0f, 1.0f, 0.0f, 0.0f);
 			glRotatef(90.0f, 0.0f, 1.0f, 0.0f);
 			glScalef(1.0f, 1.0f, 0.5f);
-			DrawLeg(-0.5f, 0.0f, -0.5f);
+			DrawCannon(-0.5f, 0.0f, -0.5f);
 		glPopMatrix();
 
-		// move the right yellow/white
+		// move the right cannon block
 		glPushMatrix();
 			glTranslatef(1.5f, -2.0f, -5.0f);
 			glRotatef(-90.0f, 1.0f, 0.0f, 0.0f);
 			glRotatef(-90.0f, 0.0f, 1.0f, 0.0f);
 			glScalef(1.0f, 1.0f, 0.5f);
-			DrawLeg(1.5f, 0.0f, -0.5f);
+			DrawCannon(1.5f, 0.0f, -0.5f);
 		glPopMatrix();
 
-		
+		//move the thruster
+		glPushMatrix();
+			glTranslatef(1.5f, -0.5f, 1.3f);
+			glScalef(3.0f, 2.0f, 0.5f);
+			DrawThruster(0.0f, 0.0f, 0.0f);
+		glPopMatrix();
+
+		glPushMatrix();
+			glTranslatef(1.5f, -0.5f, 2.8f);
+			glRotatef(rotateFire, 0.0f, 1.0f, 0.0f);
+			glScalef(3.0f, 2.0f, 0.5f);
+			DrawFire(0.0f, 0.0f, 0.0f);
+		glPopMatrix();
+
+
 	glPopMatrix();	// pop back to original coordinate system
 
 }
 
 void Spaceship::Prepare(float dt)
 {
+	rotateFire++;
+	
+	/*
+	if(rotateFire>360)
+	{
+		rotateFire = 0;
+	}
+	*/
+
+	/*
 	// if leg is moving forward, increase angle, else decrease angle
 	for (char side = 0; side < 2; side++)
 	{
@@ -194,6 +222,7 @@ void Spaceship::Prepare(float dt)
 		else if (legAngles[side] <= 0.0f)				// 15.0f
 			legStates[side] = FORWARD_STATE;		
 	}
+	*/
 }
 
 void Spaceship::moveForward()

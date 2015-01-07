@@ -22,21 +22,24 @@ void Camera::setInitRotate(GLfloat x, GLfloat y)
 	oldMousePosY = y;
 }
 
-void Camera::Moving()
+void Camera::update()
 {
-		
-	// Pan won't work if rotateX and rotateY come before it for some reason
+	// Sets the camera's position, target and which direction is up
+	gluLookAt(xCameraPosition, yCameraPosition, zCameraPosition, xLook, yLook, zLook, 0, 1, 0);
+}
 
-	mousePosX = sf::Mouse::getPosition().x;
-	mousePosY = sf::Mouse::getPosition().y;
+void Camera::moving()
+{
+	mousePosX = sf::Mouse::getPosition().x;		// Update the current mouse x position
+	mousePosY = sf::Mouse::getPosition().y;		// Update the current mouse y position
 	
 		if(!(oldMousePosX == mousePosX))
 		{
-			rotateX();
+			rotateX();	// Rotate the camera in x
 		}
 		if(!(oldMousePosY == mousePosY))
 		{
-			rotateY();
+			rotateY();	// Rotate the camera in y
 		}
 		
 		if(!(oldMousePosX == mousePosX))
@@ -52,12 +55,8 @@ void Camera::Moving()
 			zoom(); // Go forward and back in Z
 		}
 
-		gluLookAt(xCameraPosition, yCameraPosition, zCameraPosition, xLook, yLook, zLook, 0, 1, 0);
-
-	oldMousePosX = mousePosX;
-	oldMousePosY = mousePosY;
-
-
+	oldMousePosX = mousePosX;		// Update the old mouse X position
+	oldMousePosY = mousePosY;		// Update the old mouse Y position
 }
 
 void Camera::rotateX()
@@ -114,17 +113,17 @@ void Camera::pan()
 
 	if(sf::Mouse::isButtonPressed(sf::Mouse::Right))
 	{
-		// difference in mouse position
+		// Difference in mouse position
 
 		float deltaX = (mousePosX - oldMousePosX) / 30;
 		float deltaY = (mousePosY - oldMousePosY) / 30;
 		
-		// create vectors for where the camera is and where it is looking
+		// Create vectors for where the camera is and where it is looking
 
 		glm::vec3 target = glm::vec3 (xLook, yLook, zLook);
 		glm::vec3 position = glm::vec3 (xCameraPosition, yCameraPosition, zCameraPosition);
 
-		// calculate forward and right vectors, then normalise them
+		// Calculate forward and right vectors, then normalise them
 
 		glm::vec3 forward = target - position;
 
@@ -134,21 +133,21 @@ void Camera::pan()
 
 		right = glm::normalize(right);
 
-		// update the position and target vectors for X
+		// Update the position and target vectors for X
 
 		position = position + (right*deltaX);
 		target = target + (right*deltaX);
 		
-		// calculate the up vector from the forward and right vectors
+		// Calculate the up vector from the forward and right vectors
 
 		glm::vec3 up = glm::cross(forward, right);
 
-		// update the position and target vectors for Y
+		// Update the position and target vectors for Y
 
 		position = position + (up*deltaY);
 		target = target + (up*deltaY);
 
-		// set the camera's position and look at point to these new calculated values
+		// Set the camera's position and look at point to these new calculated values
 
 		xCameraPosition = position.x;
 		yCameraPosition = position.y;
@@ -165,6 +164,8 @@ void Camera::zoom()
 {
 		float deltaZ;
 
+		// If up is pressed move forward, if down is pressed move backwards
+
 		if(sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
 		{
 			deltaZ = 0.075;
@@ -178,32 +179,32 @@ void Camera::zoom()
 			deltaZ = 0;
 		}
 
-			// create vectors for where the camera is and where it is looking
+		// Create vectors for where the camera is and where it is looking
 
-			glm::vec3 target = glm::vec3 (xLook, yLook, zLook);
-			glm::vec3 position = glm::vec3 (xCameraPosition, yCameraPosition, zCameraPosition);
+		glm::vec3 target = glm::vec3 (xLook, yLook, zLook);
+		glm::vec3 position = glm::vec3 (xCameraPosition, yCameraPosition, zCameraPosition);
 
-			// calculate forward vector and normalise it
+		// Calculate forward vector and normalise it
 
-			glm::vec3 forward = target - position;
+		glm::vec3 forward = target - position;
 
-			forward = glm::normalize(forward);
+		forward = glm::normalize(forward);
 
-			// update the position and target vectors for Z
+		// Update the position and target vectors for Z
 
-			position = position + (forward*deltaZ);
+		position = position + (forward*deltaZ);
 
-			target = target + (forward*deltaZ);
+		target = target + (forward*deltaZ);
 		
-			// set the camera's position and look at point to these new calculated values
+		// Set the camera's position and look at point to these new calculated values
 
-			xCameraPosition = position.x;
-			yCameraPosition = position.y;
-			zCameraPosition = position.z;
+		xCameraPosition = position.x;
+		yCameraPosition = position.y;
+		zCameraPosition = position.z;
 
-			xLook = target.x;
-			yLook = target.y;
-			zLook = target.z;
+		xLook = target.x;
+		yLook = target.y;
+		zLook = target.z;
 }
 
 void Camera::setPosition(GLfloat xpos, GLfloat ypos, GLfloat zpos)
@@ -211,4 +212,11 @@ void Camera::setPosition(GLfloat xpos, GLfloat ypos, GLfloat zpos)
 	xCameraPosition = xpos;
 	yCameraPosition = ypos;
 	zCameraPosition = zpos;
+}
+
+void Camera::setTarget(GLfloat xtarget, GLfloat ytarget, GLfloat ztarget)
+{
+	xLook = xtarget;
+	yLook = ytarget;
+	zLook = ztarget;
 }

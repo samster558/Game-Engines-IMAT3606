@@ -1,7 +1,3 @@
-/**
-@file Scene.h
-*/
-
 #ifndef SCENE_H
 #define SCENE_H
 
@@ -12,17 +8,15 @@
 class Scene
 {
 private:
-	std::vector<Model> modelVector; // Vector of models
+	std::vector<Model> modelVector;							// Vector of models
 	TiXmlDocument doc;
 	TiXmlElement* root;
 
 public:
-	Scene();								 // Constructor
-	bool modelConstructor(string filename);	 // Create all models and load them into the vector
-	void loadAttributesFromElement(TiXmlElement* element);
-	void drawScene();						 // Draw all the models in the vector
+	Scene();												// Constructor
+	bool modelConstructor(string filename);					// Create all models and load them into the vector
+	void loadAttributesFromElement(TiXmlElement* element);	// Load in the attributes for each element
+	void drawScene();										// Draw all the models in the vector
 };
-
-
 
 #endif

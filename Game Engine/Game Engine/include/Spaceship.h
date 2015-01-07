@@ -5,11 +5,11 @@
 #include <glm/gtc/type_ptr.hpp>
 #include <glm/gtx/rotate_vector.hpp>
 
-// constants for arm and leg movement states
+// Constants for arm and leg movement states
 const char BACKWARD_STATE = 0;
 const char FORWARD_STATE  = 1;
 
-// index constants for accessing arm (red block) and leg (yellow block) array data
+// Index constants for accessing arm (red block) and leg (yellow block) array data
 const char LEFT  = 0;
 const char RIGHT = 1;
 
@@ -22,30 +22,34 @@ private:
 	float legAngles[2];
 	float armAngles[2];
 
+	int rotateFire;
+
 	int walkCounter; // 0-3, first two integers (0,1) are for one movement direction last two integers (2,3) are for the other
 
-
-	// draws a unit cube
+	// Draws a unit cube
 	void DrawCube(float xPos, float yPos, float zPos);
 
 	// methods to draw the parts of the spaceship
-	void DrawArm(float xPos, float yPos, float zPos);
+	void DrawWing(float xPos, float yPos, float zPos);
 	void DrawHead(float xPos, float yPos, float zPos);
 	void DrawTorso(float xPos, float yPos, float zPos);
-	void DrawLeg(float xPos, float yPos, float zPos);
-	void DrawFoot(float xPos, float yPos, float zPos);
+	void DrawCannon(float xPos, float yPos, float zPos);
+	void DrawThruster(float xPos, float yPos, float zPos);
+	void DrawFire(float xPos, float yPos, float zPos);
 
 public:
 
 	Spaceship();
 	virtual ~Spaceship();
 
-	// draws the entire spaceship
+	// Draws the entire spaceship
 	void DrawSpaceship();
 
-	// updates the spaceship data
+	// Updates the spaceship data
 	void Prepare(float dt);
 
+	// Movement cycle for robot arms/legs, used for a walking animation
+	// Not currently used
 	void moveForward();
 };
 

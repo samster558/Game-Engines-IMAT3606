@@ -15,12 +15,12 @@ class Camera
 {
 protected:
 
+	// Event used to check for key presses
 	sf::Event Event;
 
 	// Position variables
 	GLfloat xCameraPosition, yCameraPosition, zCameraPosition;
 	GLfloat xLook, yLook, zLook;
-
 
 	// Rotation Variables
 	bool altKeyDown;
@@ -32,14 +32,17 @@ public:
 
 	Camera();									// Constructor
 	~Camera();									// Destructor
-	void Moving();								// Move camera function
+	void update();								// Update camera function
+
+	void moving();								// Move camera function
 	void setInitRotate(GLfloat x, GLfloat y);	// Set initial rotation values for Glulookat
 	void rotateX();								// Function to calculate x Rotation
 	void rotateY();								// Function to calculate y Rotation
-	void pan();
-	void zoom();
+	void pan();									// Pan the camera function
+	void zoom();								// Zoom the camera (move forward/back)
 
-	void setPosition(GLfloat xpos, GLfloat ypos, GLfloat zpos);
+	void setPosition(GLfloat xpos, GLfloat ypos, GLfloat zpos);					// Set the camera's position
+	void setTarget(GLfloat xtarget, GLfloat ytarget, GLfloat ztarget);			// Set the camera's target position
 };
 
 

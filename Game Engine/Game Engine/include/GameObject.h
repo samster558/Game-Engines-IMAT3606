@@ -39,10 +39,9 @@ public:
 	SpaceshipHandler* getSpaceshipHandler();
 	Mortality* getMortality();
 
-	// Setter functions to set components
+	// Setter function to set components
 
 	void setComponent(std::string componentName);
-	void setLightingComponent();
 };
 
 #endif // GAMEOBJECT_H

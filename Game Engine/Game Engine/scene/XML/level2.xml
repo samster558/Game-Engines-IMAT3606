@@ -39,10 +39,23 @@
 			  
 	/>
 	
-	<Element3 modelFileLocation="scene/Models/Planet.obj"
+	<Element4 modelFileLocation="scene/Models/Planet.obj"
 			  xTranslate="-20"
 			  yTranslate="-1"
 			  zTranslate="-50"
+			  xRotate="0"
+			  yRotate="0"
+			  zRotate="0"
+			  xScale="10"
+			  yScale="10"
+			  zScale="10"
+			  
+	/>
+
+	<Element5 modelFileLocation="scene/Models/Planet.obj"
+			  xTranslate="-20"
+			  yTranslate="-1"
+			  zTranslate="-70"
 			  xRotate="0"
 			  yRotate="0"
 			  zRotate="0"

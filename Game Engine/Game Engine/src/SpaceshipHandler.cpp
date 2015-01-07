@@ -45,20 +45,20 @@ bool SpaceshipHandler::Shutdown()
 
 void SpaceshipHandler::SetupProjection(int width, int height)
 {
-	if (height == 0)					// don't want a divide by zero
+	if (height == 0)					// Don't want a divide by zero
 	{
 		height = 1;					
 	}
 
-	glViewport(0, 0, width, height);		// reset the viewport to new dimensions
-	glMatrixMode(GL_PROJECTION);			// set projection matrix current matrix
-	glLoadIdentity();						// reset projection matrix
+	glViewport(0, 0, width, height);		// Reset the viewport to new dimensions
+	glMatrixMode(GL_PROJECTION);			// Set projection matrix current matrix
+	glLoadIdentity();						// Reset projection matrix
 
-	// calculate aspect ratio of window
+	// Calculate aspect ratio of window
 	gluPerspective(52.0f,(GLfloat)width/(GLfloat)height,1.0f,1000.0f);
 
-	glMatrixMode(GL_MODELVIEW);				// set modelview matrix
-	glLoadIdentity();						// reset modelview matrix
+	glMatrixMode(GL_MODELVIEW);				// Set modelview matrix
+	glLoadIdentity();						// Reset modelview matrix
 
 	m_windowWidth = width;
 	m_windowHeight = height;
@@ -66,8 +66,8 @@ void SpaceshipHandler::SetupProjection(int width, int height)
 
 void SpaceshipHandler::Prepare(float dt)
 {
-	rotationAngle += 0.0f * dt;					// increase our rotation angle counter
-	if (rotationAngle >= 360.0f)					// if we've gone in a circle, reset counter
+	rotationAngle += 0.0f * dt;				// increase our rotation angle counter
+	if (rotationAngle >= 360.0f)			// if we've gone in a circle, reset counter
 		rotationAngle = 0.0f;
 
 	theSpaceship->Prepare(dt);
@@ -76,7 +76,7 @@ void SpaceshipHandler::Prepare(float dt)
 void SpaceshipHandler::Render()
 {
 	glPushMatrix();							// Put current matrix on stack
-		// glLoadIdentity();					// Reset matrix
+		// glLoadIdentity();				// Reset matrix
 		glTranslatef(spaceshipX, spaceshipY, spaceshipZ);	// Move to (0, 0, -30) starting point
 
 		
@@ -94,6 +94,21 @@ void SpaceshipHandler::Render()
 	glPopMatrix();
 }
 
+float SpaceshipHandler::getX()
+{
+	return spaceshipX;
+}
+
+float SpaceshipHandler::getY()
+{
+	return spaceshipY;
+}
+
+float SpaceshipHandler::getZ()
+{
+	return spaceshipZ;
+}
+
 
 void SpaceshipHandler::TurnSpaceshipLeft(float angle)
 {
@@ -108,11 +123,11 @@ void SpaceshipHandler::TurnSpaceshipRight(float angle)
 
 void SpaceshipHandler::WalkForward()
 {
-	theSpaceship->moveForward();
+	// theSpaceship->moveForward();
 
 	float speedScaler;
 
-	speedScaler = 0.02;		// Used to set the speed of movement
+	speedScaler = 0.6;		// Used to set the speed of movement
 
 	spaceshipZ = spaceshipZ - ((cos(rotationAngle * PI / 180)) * speedScaler);
 
@@ -121,11 +136,11 @@ void SpaceshipHandler::WalkForward()
 
 void SpaceshipHandler::WalkBackwards()
 {
-	theSpaceship->moveForward();
+	// theSpaceship->moveForward();
 
 	float speedScaler;
 
-	speedScaler = 0.02;		// Used to set the speed of movement
+	speedScaler = 0.6;		// Used to set the speed of movement
 
 	spaceshipZ = spaceshipZ + ((cos(rotationAngle * PI / 180)) * speedScaler);
 

@@ -13,31 +13,35 @@
 class SpaceshipHandler
 {
 private:
-	Spaceship* theSpaceship;
-	float rotationAngle;
+	Spaceship* theSpaceship;		// Handler class contains a spaceship
+	float rotationAngle;			// Rotation angle of the spaceship
 
 	int m_windowWidth;
 	int m_windowHeight;
 
-	float spaceshipX, spaceshipY, spaceshipZ;
+	float spaceshipX, spaceshipY, spaceshipZ;		// position values of the spaceship in (x,y,z)
 
 public:
 	SpaceshipHandler();
 	virtual ~SpaceshipHandler();
 
-	bool Init();
-	bool Shutdown();
+	bool Init();			// Initialise the spaceship's variables
+	bool Shutdown();		// Deletes the spaceship when it is no longer needed
 	
-	void SetupProjection(int width, int height);
+	void SetupProjection(int width, int height);		// Setup the window and matrix for use with the spaceship
 
 	void Prepare(float dt);
-	void Render();
+	void Render();			// Render the spaceship to the screen
 
-	void TurnSpaceshipLeft(float);
-	void TurnSpaceshipRight(float);
+	float getX();
+	float getY();
+	float getZ();
 
-	void WalkForward();
-	void WalkBackwards();
+	void TurnSpaceshipLeft(float);			// Turn the spaceship left about the y axis
+	void TurnSpaceshipRight(float);			// Turn the spaceship right about the y axis
+
+	void WalkForward();						// Move the spaceship relative forward
+	void WalkBackwards();					// Move the spaceship relative backwards
 };
 
 #endif
