@@ -109,6 +109,11 @@ float SpaceshipHandler::getZ()
 	return spaceshipZ;
 }
 
+float SpaceshipHandler::getRotation()
+{
+	return rotationAngle;
+}
+
 
 void SpaceshipHandler::TurnSpaceshipLeft(float angle)
 {

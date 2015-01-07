@@ -40,7 +40,7 @@ int main()
 	
 	// Create a Scene and load in the models from the XML file
 	Scene scene;
-	scene.modelConstructor("scene/XML/level2.xml");
+	scene.modelConstructor("scene/XML/level1.xml");
 
 	// Create some strings to make using the getComponent functions quicker and clearer
 	std::string light = "Lighting";
@@ -302,7 +302,6 @@ int main()
 	
 	 if(gameState == playingLevel)
 	 {
-
 		if(sf::Keyboard::isKeyPressed(sf::Keyboard::W))		// Move forward
 		{
 			player.getSpaceshipHandler()->WalkForward();
@@ -379,7 +378,7 @@ int main()
 			// If the third person camera is the active camera, set its position and target to follow the player's spaceship
 			if(activeCamera == 1)
 			{
-				thirdPersonCamera.getCamera()->setPosition(player.getSpaceshipHandler()->getX(), player.getSpaceshipHandler()->getY()+10, player.getSpaceshipHandler()->getZ()+20);
+				thirdPersonCamera.getCamera()->setPosition(player.getSpaceshipHandler()->getX(), player.getSpaceshipHandler()->getY()+10, player.getSpaceshipHandler()->getZ()+15);
 				thirdPersonCamera.getCamera()->setTarget(player.getSpaceshipHandler()->getX(), player.getSpaceshipHandler()->getY(), player.getSpaceshipHandler()->getZ());
 				thirdPersonCamera.getCamera()->update();
 			}
@@ -387,7 +386,7 @@ int main()
 			else if(activeCamera == 2)
 			{
 				firstPersonCamera.getCamera()->setPosition(player.getSpaceshipHandler()->getX(), player.getSpaceshipHandler()->getY()+5, player.getSpaceshipHandler()->getZ());
-				firstPersonCamera.getCamera()->setTarget(player.getSpaceshipHandler()->getX(), player.getSpaceshipHandler()->getY(), player.getSpaceshipHandler()->getZ()-10);
+				firstPersonCamera.getCamera()->setTarget(player.getSpaceshipHandler()->getX(), player.getSpaceshipHandler()->getY(), player.getSpaceshipHandler()->getZ()-25);
 				firstPersonCamera.getCamera()->update();
 			}
 			// If the free camera is the active camera, check for any movement controls that have been input and update the camera
@@ -400,6 +399,18 @@ int main()
 			{
 				std::cout << "no active camera detected" << endl;
 			}
+
+			// Draw the stars in the background
+			glBegin(GL_POINTS);
+			glColor3f(1.0f, 1.0f, 1.0f);
+			for(int a = -650; a < 650; a+=80)
+			{
+				for(int b = -500; b < 300; b+=80)
+				{
+				glVertex3f(a, b, -500);
+				}
+			}
+			glEnd();
 			
 			// Draw Scene of object models
 			scene.drawScene();
@@ -416,12 +427,16 @@ int main()
 				App.draw(message[i]);
 			}
 			
+			
 			// Pop GL States when we have finished drawing the messages
 			App.popGLStates();
 
 			// Restart the clock
 			Clock.restart();
 		}
+
+		
+			
 
         // Finally, display rendered frame on screen
         App.display();

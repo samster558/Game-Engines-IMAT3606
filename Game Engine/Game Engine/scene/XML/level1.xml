@@ -1,8 +1,8 @@
 <?xml version="1.0" ?>
 <root>		
-	<Element1 modelFileLocation="scene/Models/Planet.obj"
-			  xTranslate="0"
-			  yTranslate="20"
+		<Element1 modelFileLocation="scene/Models/Planet.obj"
+			  xTranslate="-20"
+			  yTranslate="-10"
 			  zTranslate="-50"
 			  xRotate="0"
 			  yRotate="0"
@@ -10,21 +10,61 @@
 			  xScale="10"
 			  yScale="10"
 			  zScale="10"
-			  textureFileLocation="scene/Textures/textureTest.raw"
-	/>
-			  
-	<Element2 modelFileLocation="scene/Models/Planet.obj"
-			  xTranslate="0"
-			  yTranslate="-1"
-			  zTranslate="-50"
-			  xRotate="0"
-			  yRotate="0"
-			  zRotate="0"
-			  xScale="10"
-			  yScale="10"
-			  zScale="10"
-			  
+			  textureFileLocation="scene/Textures/moonTexture.raw"
 	/>
 	
+		<Element2 modelFileLocation="scene/Models/Planet.obj"
+			  xTranslate="30"
+			  yTranslate="-5"
+			  zTranslate="-70"
+			  xRotate="0"
+			  yRotate="0"
+			  zRotate="0"
+			  xScale="10"
+			  yScale="10"
+			  zScale="10"
+			  textureFileLocation="scene/Textures/earthTexture.raw"
+	/>
+	
+		<Element3 modelFileLocation="scene/Models/Planet.obj"
+			  xTranslate="-10"
+			  yTranslate="5"
+			  zTranslate="-120"
+			  xRotate="0"
+			  yRotate="0"
+			  zRotate="0"
+			  xScale="10"
+			  yScale="10"
+			  zScale="10"
+			  textureFileLocation="scene/Textures/marsTexture.raw"
+	/>
+			  
+		<Element4 modelFileLocation="scene/Models/Planet.obj"
+			  xTranslate="80"
+			  yTranslate="20"
+			  zTranslate="-200"
+			  xRotate="0"
+			  yRotate="0"
+			  zRotate="0"
+			  xScale="30"
+			  yScale="30"
+			  zScale="30"
+			  textureFileLocation="scene/Textures/jupiterTexture.raw"
+	/>
+	
+	
+	
+		<Element5 modelFileLocation="scene/Models/Planet.obj"
+			  xTranslate="-70"
+			  yTranslate="40"
+			  zTranslate="-250"
+			  xRotate="0"
+			  yRotate="0"
+			  zRotate="0"
+			  xScale="8"
+			  yScale="8"
+			  zScale="8"
+			  textureFileLocation="scene/Textures/plutoTexture.raw"
+	/>
 	
 </root>

@@ -168,11 +168,11 @@ void Camera::zoom()
 
 		if(sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
 		{
-			deltaZ = 0.075;
+			deltaZ = 0.5;
 		}
 		else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
 		{
-			deltaZ = -0.075;
+			deltaZ = -0.5;
 		}
 		else
 		{

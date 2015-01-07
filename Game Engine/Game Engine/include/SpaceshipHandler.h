@@ -37,6 +37,8 @@ public:
 	float getY();
 	float getZ();
 
+	float getRotation();
+
 	void TurnSpaceshipLeft(float);			// Turn the spaceship left about the y axis
 	void TurnSpaceshipRight(float);			// Turn the spaceship right about the y axis
 
