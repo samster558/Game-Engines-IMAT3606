@@ -17,8 +17,7 @@ bool Scene::modelConstructor(string filename)
 		return false;
 	}
 
-
-	if(!doc.LoadFile("src/test.xml"))
+	if(!doc.LoadFile(filename))
 	{
 		cerr << doc.ErrorDesc() << endl;
 		return EXIT_FAILURE;	// 1

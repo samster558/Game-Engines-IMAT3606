@@ -4,6 +4,10 @@
 #include "Scene.h"
 #include "Camera.h"
 #include "Lighting.h"
+#include "GameObject.h"
+
+#include "CGfxOpenGL.h"
+#include "Robot.h"
 
 #include <vector>
 #include <math.h>
@@ -15,13 +19,15 @@
 #define REFRESH_RATE 0.005f
 using namespace std;
 
+CGfxOpenGL *g_glRender = NULL;
+
 int main()
 {
 	//************************************************************
 	sf::ContextSettings settings;
 	settings.antialiasingLevel = 8;
     //Create the main window
-	sf::Window App(sf::VideoMode(SC_WIDTH, SC_HEIGHT, 32), "SFML OpenGL");    // Create a clock for measuring time elapsed
+	sf::Window App(sf::VideoMode(SC_WIDTH, SC_HEIGHT, 32), "Game Engine");    // Create a clock for measuring time elapsed
 	
     sf::Clock Clock;
 	
@@ -32,16 +38,16 @@ int main()
 	//************************************************************
 	
 	Scene scene;
-	scene.modelConstructor("Campus/Scene.txt");
+	scene.modelConstructor("src/test.xml");
 
-	// Lighting lightZero; // Setup in constructor
-
+	GameObject lightZero;
+//	lightZero.m_lighting->setPosition(0,0,0,0);
 
 	// Camera cameraTwo;
 	 
 	 //material properties
 	 GLfloat mat_diffuse[4] = {0.75, 0.75, 0.75, 1.0};
-	 GLfloat mat_specular[] = {0.8, 0.6, 0.6, 1.0 };
+	 GLfloat mat_specular[] = {0.6, 0.6, 0.6, 1.0 };
 	 GLfloat mat_shininess[] = { 100.0 };
 
 	 glShadeModel (GL_SMOOTH); // Smooth or flat
@@ -60,6 +66,18 @@ int main()
 	int activeCamera;
 	activeCamera = 1;
 
+	//*************************************************************
+	// Robot Setup
+
+	g_glRender = new CGfxOpenGL;
+
+	g_glRender->SetupProjection(SC_WIDTH, SC_HEIGHT);
+
+	g_glRender->Init();
+
+
+
+	
 	
 
 	//*************************************************************
@@ -86,14 +104,38 @@ int main()
 
 	//Output to console the software controls
 	cout<<"DMU Campus"<<endl;
-	cout<<"To Move around the scene, use W,A,S,D"<<endl;
-	cout<<"To rotate the camera, hold down alt and move the mouse"<<endl;
+	cout<<"Edit this with movement controls"<<endl;
+	cout<<"To rotate the camera, hold down the right mouse button and move the mouse"<<endl;
 	cout<<"To toggle lights on and off, use Z and X"<<endl;
 
 	//************************************************************
 	// Start game loop
     while (App.isOpen())
     {
+
+		if(sf::Keyboard::isKeyPressed(sf::Keyboard::W))
+		{
+			g_glRender->WalkForward();
+		}
+
+		if(sf::Keyboard::isKeyPressed(sf::Keyboard::S))
+		{
+			g_glRender->WalkBackwards();
+		}
+
+		if(sf::Keyboard::isKeyPressed(sf::Keyboard::Q))
+		{
+			g_glRender->TurnRobotLeft(0.2);
+		}
+
+		if(sf::Keyboard::isKeyPressed(sf::Keyboard::E))
+		{
+			g_glRender->TurnRobotRight(0.2);
+		}
+
+
+
+
 		if(sf::Keyboard::isKeyPressed(sf::Keyboard::C))
 		{
 			if(activeCamera == 1)
@@ -108,7 +150,6 @@ int main()
 				activeCamera = 1;
 			}	
 		}
-
 
 		//enable light by pressing z
 		if(sf::Keyboard::isKeyPressed(sf::Keyboard::Z))
@@ -146,12 +187,12 @@ int main()
 		if((float)Clock.getElapsedTime().asSeconds()>REFRESH_RATE){
 			// Clear colour and depth buffer
 			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
-			//scene.moveObjects();
 			
 			// Apply some transformations
 			glMatrixMode(GL_MODELVIEW);
 			glLoadIdentity();
+
+			
 			if(activeCamera == 1)
 			{
 				cameraOne.Moving();
@@ -164,18 +205,22 @@ int main()
 			{
 				std::cout << "no active camera detected" << endl;
 			}
+			
+			// Draw Scene of object models
+			 scene.drawScene();
 
-			//Drawing Scene of object models
-			scene.drawScene();
+			// Draw Robot
+			g_glRender->Render();
 			
-			
+			// Restart the clock
 			Clock.restart();
 		}
 
-       
         // Finally, display rendered frame on screen
         App.display();
     }
+
+	delete g_glRender;
 
     return EXIT_SUCCESS;
 }

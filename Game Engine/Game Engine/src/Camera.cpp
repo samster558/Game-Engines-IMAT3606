@@ -43,7 +43,7 @@ void Camera::Moving()
 				}
 		}
 
-		if(Event.KeyPressed)
+		if(Event.KeyPressed) // In the event of a key being pressed, run zoom incase that key was the forward or back key
 		{
 			zoom(); // Go forward and back in Z
 		}
@@ -161,11 +161,11 @@ void Camera::zoom()
 {
 		float deltaZ;
 
-		if(sf::Keyboard::isKeyPressed(sf::Keyboard::W))
+		if(sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
 		{
 			deltaZ = 0.075;
 		}
-		else if(sf::Keyboard::isKeyPressed(sf::Keyboard::S))
+		else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
 		{
 			deltaZ = -0.075;
 		}

@@ -6,7 +6,6 @@
 #define SCENE_H
 
 #include "Model.h"
-#include "StereoCamera.h"
 
 #include "tinyxml.h"
 

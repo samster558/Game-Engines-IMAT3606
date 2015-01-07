@@ -11,6 +11,7 @@
 #include "Renderable.h"
 #include "Transform.h"
 #include "Weapon.h"
+#include "Lighting.h"
 
 
 class GameObject
@@ -26,10 +27,17 @@ protected:
 	Transform* m_transform;
 	Weapon* m_weapon;
 	
+	Lighting* m_lighting;
 
 public:
 	GameObject();
 	~GameObject();
+
+	// Getter functions to access components
+
+	// Setter functions to set components
+
+	void setLightingComponent();
 
 	// Initalise functions set the default component pointers for entities in the game
 
@@ -37,7 +45,6 @@ public:
 	void initEnemyAlpha();
 	void initEnemyBeta();
 	void initRock();
-
 
 };
 

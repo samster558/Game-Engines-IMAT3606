@@ -10,6 +10,8 @@ GameObject::GameObject()
 	m_renderable = nullptr;
 	m_weapon = nullptr;
 
+	m_lighting = nullptr;
+
 	// Transform contains the x and y co-ordinates that will be used by other components
 	// It will need to be set for almost everything
 

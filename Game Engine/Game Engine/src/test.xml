@@ -25,21 +25,8 @@
 			  zScale="1.5"
 			  textureFileLocation="Campus/Textures/hawthorneTexture.raw"
 	/>
-	
+		
 	<Element3 modelFileLocation="Campus/Models/Planet.obj"
-			  xTranslate="0"
-			  yTranslate="-1"
-			  zTranslate="-50"
-			  xRotate="0"
-			  yRotate="0"
-			  zRotate="0"
-			  xScale="10"
-			  yScale="10"
-			  zScale="10"
-			  textureFileLocation="Campus/Textures/textureTest.raw"
-	/>
-	
-	<Element4 modelFileLocation="Campus/Models/Planet.obj"
 			  xTranslate="0"
 			  yTranslate="20"
 			  zTranslate="-50"
@@ -52,10 +39,10 @@
 			  textureFileLocation="Campus/Textures/textureTest.raw"
 	/>
 			  
-	<Element5 modelFileLocation="Campus/Models/Planet.obj"
+	<Element4 modelFileLocation="Campus/Models/Planet.obj"
 			  xTranslate="0"
 			  yTranslate="-1"
-			  zTranslate="-40"
+			  zTranslate="-50"
 			  xRotate="0"
 			  yRotate="0"
 			  zRotate="0"

@@ -10,9 +10,6 @@
 #include <iostream>
 #include <fstream>
 #include <sstream>
-//#include "Movement.h"
-//#include "StereoCamera.h"
-
 using namespace std;
 
 class Model
