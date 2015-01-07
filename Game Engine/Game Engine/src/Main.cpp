@@ -66,12 +66,12 @@ int main()
 	sf::Image splashImage;
 	sf::Texture splashTexture;
 
-	splashImage.loadFromFile("graphics/smw-bg-sky1.png");
+	splashImage.loadFromFile("graphics/Space Shooter Logo.png");
 	splashImage.createMaskFromColor(sf::Color(255,255,255,255));
 	 
 	splashTexture.loadFromImage(splashImage);
 	splashSprite.setTexture(splashTexture);
-	splashSprite.setPosition(150,150);
+	splashSprite.setPosition(150,300);
 
 	bool alphaGoingUp;			// Bool for whether the alpha value is increasing or decreasing
 	alphaGoingUp = false;		// Set alpha to be decreasing at first
@@ -134,7 +134,7 @@ int main()
     glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 	
 	// Enable material
-	glMaterialfv(GL_FRONT_AND_BACK,GL_AMBIENT_AND_DIFFUSE,mat_diffuse);
+	glMaterialfv(GL_FRONT_AND_BACK,GL_AMBIENT_AND_DIFFUSE, mat_diffuse);
 	glMaterialfv(GL_FRONT, GL_SPECULAR, mat_specular);
 	glMaterialfv(GL_FRONT, GL_SHININESS, mat_shininess);
 
@@ -151,9 +151,9 @@ int main()
 	//************************************************************
 
 	// Text Messages/UI setup
-	std::string stringOfMessages[4]; // Array to hold the string messages seen on the screen
+	std::string stringOfMessages[5]; // Array to hold the string messages seen on the screen
 	sf::Font gameFont; // The font used for the game
-	sf::Text message[4]; // The text messages used for the game
+	sf::Text message[5]; // The text messages used for the game
 
 	int score = 0;
 	int lives = 3;
@@ -163,12 +163,13 @@ int main()
 	stringOfMessages[1] = "Score: " +std::to_string(score);
 	stringOfMessages[2] = "Lives: " +std::to_string(lives);
 	stringOfMessages[3] = "Paused";
+	stringOfMessages[4] = "Press G to play";
 
 	// Load the font for the text
 	gameFont.loadFromFile("./fonts/Acknowtt.ttf");
 
 	// Set the font and character size of the messages
-	for (int i=0; i<4; i++)
+	for (int i=0; i<5; i++)
 	{
 		 message[i].setFont(gameFont);
 		 message[i].setCharacterSize(30);
@@ -180,6 +181,7 @@ int main()
 	message[1].setPosition(10,75);
 	message[2].setPosition(10,40);
 	message[3].setPosition(350,350);
+	message[4].setPosition(10,40);
 
 	//************************************************************
 
@@ -224,6 +226,7 @@ int main()
 
 			// Display title message
 			App.draw(message[0]);
+			App.draw(message[4]);
 
 			// Pop GL States when we have finished drawing the messages
 			App.popGLStates();
@@ -233,7 +236,8 @@ int main()
 
 			if(sf::Keyboard::isKeyPressed(sf::Keyboard::G))		// Start the game from the menu
 			{
-				gameState = splashScreen;
+				gameState = playingLevel;
+				// gameState = splashScreen;		
 			}
 		}
 
@@ -298,6 +302,7 @@ int main()
 	
 	 if(gameState == playingLevel)
 	 {
+
 		if(sf::Keyboard::isKeyPressed(sf::Keyboard::W))		// Move forward
 		{
 			player.getSpaceshipHandler()->WalkForward();
@@ -371,7 +376,6 @@ int main()
 			glMatrixMode(GL_MODELVIEW);
 			glLoadIdentity();
 
-			
 			// If the third person camera is the active camera, set its position and target to follow the player's spaceship
 			if(activeCamera == 1)
 			{
@@ -383,7 +387,7 @@ int main()
 			else if(activeCamera == 2)
 			{
 				firstPersonCamera.getCamera()->setPosition(player.getSpaceshipHandler()->getX(), player.getSpaceshipHandler()->getY()+5, player.getSpaceshipHandler()->getZ());
-				firstPersonCamera.getCamera()->setTarget(player.getSpaceshipHandler()->getX(), player.getSpaceshipHandler()->getY(), player.getSpaceshipHandler()->getZ()-20);
+				firstPersonCamera.getCamera()->setTarget(player.getSpaceshipHandler()->getX(), player.getSpaceshipHandler()->getY(), player.getSpaceshipHandler()->getZ()-10);
 				firstPersonCamera.getCamera()->update();
 			}
 			// If the free camera is the active camera, check for any movement controls that have been input and update the camera

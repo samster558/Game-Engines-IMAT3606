@@ -25,7 +25,7 @@ bool SpaceshipHandler::Init()
 
 	spaceshipX = 0.0f;
 	spaceshipY = 0.0f;
-	spaceshipZ = -30.0f;
+	spaceshipZ = -10.0f;
 
 	rotationAngle = 0.0f;
 
@@ -123,7 +123,7 @@ void SpaceshipHandler::TurnSpaceshipRight(float angle)
 
 void SpaceshipHandler::WalkForward()
 {
-	// theSpaceship->moveForward();
+	theSpaceship->moveForward();
 
 	float speedScaler;
 
@@ -136,7 +136,7 @@ void SpaceshipHandler::WalkForward()
 
 void SpaceshipHandler::WalkBackwards()
 {
-	// theSpaceship->moveForward();
+	theSpaceship->moveForward();
 
 	float speedScaler;
 

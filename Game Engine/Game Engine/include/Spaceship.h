@@ -22,7 +22,8 @@ private:
 	float legAngles[2];
 	float armAngles[2];
 
-	int rotateFire;
+	float moveFire;				// Variable used to move the thruster fire forward and back
+	bool fireForward;			// Bool to check whether the thurster fire is moving forward or back
 
 	int walkCounter; // 0-3, first two integers (0,1) are for one movement direction last two integers (2,3) are for the other
 
@@ -31,8 +32,8 @@ private:
 
 	// methods to draw the parts of the spaceship
 	void DrawWing(float xPos, float yPos, float zPos);
-	void DrawHead(float xPos, float yPos, float zPos);
-	void DrawTorso(float xPos, float yPos, float zPos);
+	void DrawCockpit(float xPos, float yPos, float zPos);
+	void DrawBody(float xPos, float yPos, float zPos);
 	void DrawCannon(float xPos, float yPos, float zPos);
 	void DrawThruster(float xPos, float yPos, float zPos);
 	void DrawFire(float xPos, float yPos, float zPos);

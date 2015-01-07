@@ -20,7 +20,9 @@ Spaceship::Spaceship()
 	legStates[LEFT] = FORWARD_STATE;
 	legStates[RIGHT] = BACKWARD_STATE;
 
-	rotateFire = 0;
+	moveFire = 0;
+	fireForward = true;
+
 	walkCounter = 0;
 }
 
@@ -61,7 +63,7 @@ void Spaceship::DrawCube(float xPos, float yPos, float zPos)
 	glPopMatrix();
 }
 
-void Spaceship::DrawHead(float xPos, float yPos, float zPos)
+void Spaceship::DrawCockpit(float xPos, float yPos, float zPos)
 {
 	glPushMatrix();
 		glColor3f(0.878f, 0.874f, 0.859f);	// steel
@@ -72,7 +74,7 @@ void Spaceship::DrawHead(float xPos, float yPos, float zPos)
 	glPopMatrix();
 }
 
-void Spaceship::DrawTorso(float xPos, float yPos, float zPos)
+void Spaceship::DrawBody(float xPos, float yPos, float zPos)
 {
 	glPushMatrix();
 		glColor3f(0.878f, 0.874f, 0.859f);	// steel
@@ -127,8 +129,8 @@ void Spaceship::DrawSpaceship()
 	glPushMatrix();	
 
 		// draw head and torso parts
-		DrawHead(1.0f, 2.0f, 0.0f);		
-		DrawTorso(1.5f, 0.0f, 0.0f);
+		DrawCockpit(1.0f, 2.0f, 0.0f);		
+		DrawBody(1.5f, 0.0f, 0.0f);
 
 		// move the right wing block
 		glPushMatrix();
@@ -151,6 +153,7 @@ void Spaceship::DrawSpaceship()
 			glTranslatef(-1.5f, -2.0f, -5.0f);
 			glRotatef(-90.0f, 1.0f, 0.0f, 0.0f);
 			glRotatef(90.0f, 0.0f, 1.0f, 0.0f);
+			//glRotatef(legAngles[LEFT], 0.0f, 0.0f, 1.0f);
 			glScalef(1.0f, 1.0f, 0.5f);
 			DrawCannon(-0.5f, 0.0f, -0.5f);
 		glPopMatrix();
@@ -160,6 +163,7 @@ void Spaceship::DrawSpaceship()
 			glTranslatef(1.5f, -2.0f, -5.0f);
 			glRotatef(-90.0f, 1.0f, 0.0f, 0.0f);
 			glRotatef(-90.0f, 0.0f, 1.0f, 0.0f);
+			//glRotatef(legAngles[RIGHT], 0.0f, 0.0f, 1.0f);
 			glScalef(1.0f, 1.0f, 0.5f);
 			DrawCannon(1.5f, 0.0f, -0.5f);
 		glPopMatrix();
@@ -173,7 +177,8 @@ void Spaceship::DrawSpaceship()
 
 		glPushMatrix();
 			glTranslatef(1.5f, -0.5f, 2.8f);
-			glRotatef(rotateFire, 0.0f, 1.0f, 0.0f);
+			// glRotatef(moveFire*2, 1.0f, 0.0f, 0.0f);
+			glTranslatef(0.0f, 0.0f, (-moveFire)/100.0f);
 			glScalef(3.0f, 2.0f, 0.5f);
 			DrawFire(0.0f, 0.0f, 0.0f);
 		glPopMatrix();
@@ -185,16 +190,6 @@ void Spaceship::DrawSpaceship()
 
 void Spaceship::Prepare(float dt)
 {
-	rotateFire++;
-	
-	/*
-	if(rotateFire>360)
-	{
-		rotateFire = 0;
-	}
-	*/
-
-	/*
 	// if leg is moving forward, increase angle, else decrease angle
 	for (char side = 0; side < 2; side++)
 	{
@@ -222,11 +217,31 @@ void Spaceship::Prepare(float dt)
 		else if (legAngles[side] <= 0.0f)				// 15.0f
 			legStates[side] = FORWARD_STATE;		
 	}
-	*/
+	
 }
 
 void Spaceship::moveForward()
 {
+	// These if statements control the thruster fire moving forward and backwards
+
+	if(moveFire>20)
+	{
+		fireForward = false;
+	}
+	else if(moveFire<1)
+	{
+		fireForward = true;
+	}
+
+	if(fireForward == true)
+	{
+		moveFire++;
+	}
+	else
+	{
+		moveFire--;
+	}
+
 	if (walkCounter == 0 || walkCounter == 1 || walkCounter == 6 || walkCounter == 7)		// Move legs one way
 	{
 		legAngles[0] += 5.0f;
