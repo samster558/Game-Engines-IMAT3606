@@ -11,20 +11,27 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\GameObject.cpp" />
+    <ClCompile Include="src\Lighting.cpp" />
+    <ClCompile Include="src\Main.cpp" />
+    <ClCompile Include="src\Model.cpp" />
+    <ClCompile Include="src\Camera.cpp" />
+    <ClCompile Include="src\Renderable.cpp" />
+    <ClCompile Include="src\Scene.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="include\GameObject.h" />
+    <ClInclude Include="include\Lighting.h" />
     <ClInclude Include="include\Model.h" />
-    <ClInclude Include="include\Movement.h" />
+    <ClInclude Include="include\Camera.h" />
+    <ClInclude Include="include\Renderable.h" />
     <ClInclude Include="include\Scene.h" />
     <ClInclude Include="include\StereoCamera.h" />
   </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="src\Main.cpp" />
-    <ClCompile Include="src\Model.cpp" />
-    <ClCompile Include="src\Movement.cpp" />
-    <ClCompile Include="src\Scene.cpp" />
-  </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{6F720E74-27A7-44BA-B928-4235521C9430}</ProjectGuid>
-    <RootNamespace>GameEngine</RootNamespace>
+    <ProjectGuid>{8374BD26-3FE4-4BA5-9D78-95087DD25F22}</ProjectGuid>
+    <RootNamespace>Week8Project</RootNamespace>
+    <ProjectName>Game Engine</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -55,9 +62,8 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <SDLCheck>
-      </SDLCheck>
       <AdditionalIncludeDirectories>$(SolutionDir)\SFML-2.1\include;$(SolutionDir)\Game Engine\include;$(SolutionDir)\Game Engine\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>SFML_STATIC;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -71,12 +77,15 @@
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <SDLCheck>true</SDLCheck>
+      <AdditionalIncludeDirectories>$(SolutionDir)\SFML-2.1\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>SFML_STATIC;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalLibraryDirectories>$(SolutionDir)\SFML-2.1\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>sfml-graphics-s.lib;sfml-window-s.lib;sfml-system-s.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

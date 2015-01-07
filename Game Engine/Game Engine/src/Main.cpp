@@ -1,16 +1,10 @@
-///////////////////////////////////////////////////////////
-// openGL object model loader
-// Load a scene of obj files into openGL
-// Campus assignment
-// Kevin Iseborn P12201712
-// Sam Lighton
-///////////////////////////////////////////////////////////
-
 #include <SFML/Graphics.hpp>
 #include <SFML/OpenGL.hpp>
 #include "Model.h"
 #include "Scene.h"
-#include "Movement.h"
+#include "Camera.h"
+#include "Lighting.h"
+
 #include <vector>
 #include <math.h>
 #include <string>
@@ -39,61 +33,58 @@ int main()
 	
 	Scene scene;
 	scene.modelConstructor("Campus/Scene.txt");
-	 
-	 //light 0 properties
-	 GLfloat light_ambient[] = {0.3, 0.3, 0.3, 0.3};
-	 GLfloat light_diffuse[] = {1.0, 1.0, 1.0, 1.0};
-	 GLfloat light_position[] = {1.0, 1.0, 1.0, 0.0};
-	
-	 //ambient light properties
-	 GLfloat model_ambient[] = { 0.2, 0.2, 0.2, 1.0};
 
+	Lighting lightZero; // Setup in constructor
+
+
+	// Camera cameraTwo;
+	 
 	 //material properties
+	 GLfloat mat_diffuse[4] = {0.75, 0.75, 0.75, 1.0};
 	 GLfloat mat_specular[] = {0.8, 0.6, 0.6, 1.0 };
 	 GLfloat mat_shininess[] = { 100.0 };
-	 glShadeModel (GL_SMOOTH);
 
-	//Camera Properties
-	GLfloat zCameraPosition = 0;
-	GLfloat xCameraPosition = 0;
-	GLfloat yCameraPosition = 0;
+	 glShadeModel (GL_SMOOTH); // Smooth or flat
 
-	//create movement controls
-	Movement movement;
-	//set initial rotate value for gluLookAt
-	movement.setInitRotate(0.f,0.f);
+	//create a camera with movement controls 
+	Camera cameraOne;
+	cameraOne.setPosition(0,0,-20);
+
+	Camera cameraTwo;
+	cameraTwo.setPosition(0,30,-40);
+
+	//set initial rotate value for gluLookAt	
+	cameraOne.setInitRotate(0.f,0.f);
+	cameraTwo.setInitRotate(0.f,0.f);
+
+	int activeCamera;
+	activeCamera = 1;
+
+	
+
 	//*************************************************************
     //Set color and depth clear value
     glClearDepth(1.f);
     glClearColor(0.5f, 0.9f, 1.f, 1.f);
 	
 	//enable material
+	glMaterialfv(GL_FRONT_AND_BACK,GL_AMBIENT_AND_DIFFUSE,mat_diffuse);
 	glMaterialfv(GL_FRONT, GL_SPECULAR, mat_specular);
 	glMaterialfv(GL_FRONT, GL_SHININESS, mat_shininess);
-	
-	//enable light
-	glEnable(GL_LIGHTING);
-	glEnable(GL_LIGHT0);
-	//give light 0 properties
-	glLightfv(GL_LIGHT0, GL_POSITION, light_position);
-	glLightfv(GL_LIGHT0, GL_AMBIENT, light_ambient);
-	glLightfv(GL_LIGHT0, GL_DIFFUSE, light_diffuse);
-	
-
-	glLightModelfv(GL_LIGHT_MODEL_AMBIENT, model_ambient);
 
     // Enable Z-buffer read and write
     glEnable(GL_DEPTH_TEST);
     glDepthMask(GL_TRUE);
 
-    // Setup a perspective projection
+	// Setup a perspective projection
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
     gluPerspective(105.f, 1.f, 1.f, 500.f);
 	glEnable(GL_DEPTH_TEST);
+
 	//************************************************************
 
-	//Output to consol the software controls
+	//Output to console the software controls
 	cout<<"DMU Campus"<<endl;
 	cout<<"To Move around the scene, use W,A,S,D"<<endl;
 	cout<<"To rotate the camera, hold down alt and move the mouse"<<endl;
@@ -117,6 +108,20 @@ int main()
 		if(sf::Keyboard::isKeyPressed(sf::Keyboard::E))
 		{
 			if(threeDActive == true){threeDActive = false;}
+		}
+		if(sf::Keyboard::isKeyPressed(sf::Keyboard::C))
+		{
+			if(activeCamera == 1)
+			{
+				activeCamera = 2;
+			}
+		}
+		if(sf::Keyboard::isKeyPressed(sf::Keyboard::V))
+		{
+			if(activeCamera == 2)
+			{
+				activeCamera = 1;
+			}	
 		}
 
 
@@ -162,7 +167,18 @@ int main()
 			// Apply some transformations
 			glMatrixMode(GL_MODELVIEW);
 			glLoadIdentity();
-			movement.Moving();
+			if(activeCamera == 1)
+			{
+				cameraOne.Moving();
+			}
+			else if(activeCamera == 2)
+			{
+				cameraTwo.Moving();
+			}
+			else
+			{
+				std::cout << "no active camera detected" << endl;
+			}
 
 			//Drawing Scene of object models
 			if(threeDActive == false)scene.drawScene();

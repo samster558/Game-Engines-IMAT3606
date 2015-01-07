@@ -10,6 +10,8 @@
     # Recycle Bin used on file shares
     $RECYCLE.BIN/
      
+	 /SFML-2.1
+	 
     # Windows Installer files
     *.cab
     *.msi
