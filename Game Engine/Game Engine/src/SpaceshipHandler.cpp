@@ -126,9 +126,9 @@ void SpaceshipHandler::TurnSpaceshipRight(float angle)
 	rotationAngle -= angle;
 }
 
-void SpaceshipHandler::WalkForward()
+void SpaceshipHandler::WalkForwards()
 {
-	theSpaceship->moveForward();
+	theSpaceship->moving();
 
 	float speedScaler;
 
@@ -141,7 +141,7 @@ void SpaceshipHandler::WalkForward()
 
 void SpaceshipHandler::WalkBackwards()
 {
-	theSpaceship->moveForward();
+	theSpaceship->moving();
 
 	float speedScaler;
 

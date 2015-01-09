@@ -42,7 +42,7 @@ public:
 	void TurnSpaceshipLeft(float);			// Turn the spaceship left about the y axis
 	void TurnSpaceshipRight(float);			// Turn the spaceship right about the y axis
 
-	void WalkForward();						// Move the spaceship relative forward
+	void WalkForwards();						// Move the spaceship relative forward
 	void WalkBackwards();					// Move the spaceship relative backwards
 };
 

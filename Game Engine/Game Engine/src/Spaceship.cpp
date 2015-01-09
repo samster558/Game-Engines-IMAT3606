@@ -9,21 +9,21 @@
 
 Spaceship::Spaceship()
 {
-	armAngles[LEFT] = 0.0;
-	armAngles[RIGHT] = 0.0;
-	legAngles[LEFT] = 0.0;
-	legAngles[RIGHT] = 0.0;
+	wingAngles[LEFT] = 0.0;
+	wingAngles[RIGHT] = 0.0;
+	cannonAngles[LEFT] = 0.0;
+	cannonAngles[RIGHT] = 0.0;
 
-	armStates[LEFT] = FORWARD_STATE;
-	armStates[RIGHT] = BACKWARD_STATE;
+	wingStates[LEFT] = FORWARD_STATE;
+	wingStates[RIGHT] = BACKWARD_STATE;
 
-	legStates[LEFT] = FORWARD_STATE;
-	legStates[RIGHT] = BACKWARD_STATE;
+	cannonStates[LEFT] = FORWARD_STATE;
+	cannonStates[RIGHT] = BACKWARD_STATE;
 
 	moveFire = 0;
 	fireForward = true;
 
-	walkCounter = 0;
+	cycleCounter = 0;
 }
 
 Spaceship::~Spaceship()
@@ -70,7 +70,6 @@ void Spaceship::DrawCockpit(float xPos, float yPos, float zPos)
 		glTranslatef(xPos, yPos, zPos);
 		glScalef(2.0f, 2.0f, 1.0f);		// Cockpit is a 2x2x1 cube
 		DrawCube(0.0f, -1.0f, -5.0f);
-
 	glPopMatrix();
 }
 
@@ -153,7 +152,8 @@ void Spaceship::DrawSpaceship()
 			glTranslatef(-1.5f, -2.0f, -5.0f);
 			glRotatef(-90.0f, 1.0f, 0.0f, 0.0f);
 			glRotatef(90.0f, 0.0f, 1.0f, 0.0f);
-			glRotatef(legAngles[LEFT], 0.0f, 1.0f, 1.0f);
+			// Rotation placeholder for left cannon
+			// glRotatef(cannonAngles[LEFT], 0.0f, 0.0f, 1.0f);
 			glScalef(1.0f, 1.0f, 0.5f);
 			DrawCannon(-0.5f, 0.0f, -0.5f);
 		glPopMatrix();
@@ -163,7 +163,8 @@ void Spaceship::DrawSpaceship()
 			glTranslatef(1.5f, -2.0f, -5.0f);
 			glRotatef(-90.0f, 1.0f, 0.0f, 0.0f);
 			glRotatef(-90.0f, 0.0f, 1.0f, 0.0f);
-			// glRotatef(legAngles[RIGHT], 0.0f, 0.0f, 1.0f);
+			// Rotation placeholder for right cannon
+			// glRotatef(cannonAngles[RIGHT], 0.0f, 0.0f, 1.0f);
 			glScalef(1.0f, 1.0f, 0.5f);
 			DrawCannon(1.5f, 0.0f, -0.5f);
 		glPopMatrix();
@@ -183,46 +184,49 @@ void Spaceship::DrawSpaceship()
 			DrawFire(0.0f, 0.0f, 0.0f);
 		glPopMatrix();
 
-
 	glPopMatrix();	// Pop back to original coordinate system
-
 }
 
 void Spaceship::Prepare(float dt)
 {
-	// If leg is moving forward, increase angle, else decrease angle
+	// If cannon/wing is moving forward, increase angle, else decrease angle
 	for (char side = 0; side < 2; side++)
 	{
-		// Arms
-		if (armStates[side] == FORWARD_STATE)
-			armAngles[side] += 0.0f * dt;				// 20.0f
+		// Cannons
+		if (wingStates[side] == FORWARD_STATE)
+			wingAngles[side] += 0.0f * dt;				// 20.0f
 		else
-			armAngles[side] -= 0.0f * dt;				// 20.0f
+			wingAngles[side] -= 0.0f * dt;				// 20.0f
 
 		// Change state if exceeding angles
-		if (armAngles[side] >= 0.0f)					// 15.0f
-			armStates[side] = BACKWARD_STATE;
-		else if (armAngles[side] <= 0.0f)				// 0.0f
-			armStates[side] = FORWARD_STATE;
+		if (wingAngles[side] >= 0.0f)					// 15.0f
+			wingStates[side] = BACKWARD_STATE;
+		else if (wingAngles[side] <= 0.0f)				// 0.0f
+			wingStates[side] = FORWARD_STATE;
 
-		// Legs
-		if (legStates[side] == FORWARD_STATE)
-			legAngles[side] += 0.0f * dt;				// 20.0f
+		// Wings
+		if (cannonStates[side] == FORWARD_STATE)
+			cannonAngles[side] += 0.0f * dt;				// 20.0f
 		else
-			legAngles[side] -= 0.0f * dt;				// 20.0f
+			cannonAngles[side] -= 0.0f * dt;				// 20.0f
 
 		// Change state if exceeding angles
-		if (legAngles[side] >= 20.0f)					// 15.0f
-			legStates[side] = BACKWARD_STATE;
-		else if (legAngles[side] <= -20.0f)				// 15.0f
-			legStates[side] = FORWARD_STATE;		
+		if (cannonAngles[side] >= 20.0f)					// 15.0f
+			cannonStates[side] = BACKWARD_STATE;
+		else if (cannonAngles[side] <= -20.0f)				// 15.0f
+			cannonStates[side] = FORWARD_STATE;		
 	}
-	
 }
 
-void Spaceship::moveForward()
+void Spaceship::moving()
 {
-	// These if statements control the thruster fire moving forward and backwards
+	movementCycle();
+	fireCycle();
+}
+
+void Spaceship::fireCycle()
+{
+	// These if statements control the thruster fire moving forward and backwards in a pattern
 
 	if(moveFire>20)
 	{
@@ -241,23 +245,27 @@ void Spaceship::moveForward()
 	{
 		moveFire--;
 	}
+}
 
-	if (walkCounter == 0 || walkCounter == 1 || walkCounter == 6 || walkCounter == 7)		// Move legs one way
+	
+void Spaceship::movementCycle()
+{
+	if (cycleCounter == 0 || cycleCounter == 1 || cycleCounter == 6 || cycleCounter == 7)		// Move cannons one way
 	{
-		legAngles[0] += 5.0f;
-		legAngles[1] -= 5.0f;
+		cannonAngles[0] += 5.0f;
+		cannonAngles[1] -= 5.0f;
 	}
 
-	if (walkCounter == 2 || walkCounter == 3 || walkCounter == 4 || walkCounter == 5)		// Move legs the other way
+	if (cycleCounter == 2 || cycleCounter == 3 || cycleCounter == 4 || cycleCounter == 5)		// Move cannons the other way
 	{
-		legAngles[0] -= 5.0f;
-		legAngles[1] += 5.0f;
+		cannonAngles[0] -= 5.0f;
+		cannonAngles[1] += 5.0f;
 	}
 
-	walkCounter++;			// Increment walkCounter
+	cycleCounter++;			// Increment cycleCounter
 
-	if (walkCounter > 7)	// If a walk cycle is finished, reset it
+	if (cycleCounter > 7)	// If a cycle is finished, reset it
 	{
-		walkCounter = 0;
+		cycleCounter = 0;
 	}
 }

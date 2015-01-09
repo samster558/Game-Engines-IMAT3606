@@ -16,16 +16,16 @@ const char RIGHT = 1;
 class Spaceship
 {
 private:
-	char legStates[2];	
-	char armStates[2];
+	char cannonStates[2];	
+	char wingStates[2];
 
-	float legAngles[2];
-	float armAngles[2];
+	float cannonAngles[2];
+	float wingAngles[2];
 
 	float moveFire;				// Variable used to move the thruster fire forward and back
 	bool fireForward;			// Bool to check whether the thurster fire is moving forward or back
 
-	int walkCounter; // 0-3, first two integers (0,1) are for one movement direction last two integers (2,3) are for the other
+	int cycleCounter; // 0-3, first two integers (0,1) are for one movement direction last two integers (2,3) are for the other
 
 	// Draws a unit cube
 	void DrawCube(float xPos, float yPos, float zPos);
@@ -49,9 +49,14 @@ public:
 	// Updates the spaceship data
 	void Prepare(float dt);
 
-	// Movement cycle for robot arms/legs, used for a walking animation
-	// Not currently used
-	void moveForward();
+	// Contains functions to execute when the spaceship moves forwards or backwards
+	void moving();
+
+	// Movement cycle for the spaceship's cannons, used to animate the cannons as the spaceship moves
+	void movementCycle();
+
+	// Movement cycle for the spaceship's fire block which moves it forwards and backwards
+	void fireCycle();
 };
 
 #endif

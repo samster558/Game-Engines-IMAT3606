@@ -52,12 +52,34 @@ int main()
 	enum States {mainMenu, splashScreen, playingLevel, pause};
 	int gameState = mainMenu;
 
-	/*
+	//*************************************************************
+
+	// Lighting
+
+	// Enable Lighting
+	 glEnable(GL_LIGHTING);
+	 
+	 glEnable(GL_LIGHT0);
+
 	GameObject lightZero;
 	lightZero.setComponent(light);
-	lightZero.getLight()->setPosition(0,0,0,0);
-	*/
+	lightZero.getLight()->setLight(GL_LIGHT0);
+	lightZero.getLight()->setPosition(0.0f, 0.0f, 0.0f, 1.0f);				// Location - (10,0,-50)
+	//lightZero.getLight()->setDiffuse(1.0f, 1.0f, 1.0f, 1.0f);
+	
 
+	GameObject lightOne;
+	lightOne.setComponent(light);
+	lightOne.getLight()->setLight(GL_LIGHT1);
+	lightOne.getLight()->setPosition(10.0f, 0.0f, -50.0f, 1.0f);			// Location - (-10,0,-50)
+	//lightOne.getLight()->setDiffuse(0.0f, 1.0f, 0.0f, 1.0f);
+	
+
+	 cout << lightZero.getLight()->getLightNumber() << endl << endl;
+	 cout << lightOne.getLight()->getLightNumber() << endl << endl;
+
+	 
+	
 	//*************************************************************
 
 	// Splashscreen
@@ -107,13 +129,6 @@ int main()
 	int activeCamera;
 	activeCamera = 1;
 
-	 // Material properties
-	 GLfloat mat_diffuse[4] = {0.75, 0.75, 0.75, 1.0};
-	 GLfloat mat_specular[] = {0.6, 0.6, 0.6, 1.0 };
-	 GLfloat mat_shininess[] = { 100.0 };
-
-	 glShadeModel (GL_SMOOTH); // Smooth or flat
-
 	//*************************************************************
 
 	// Spaceship setup
@@ -124,17 +139,26 @@ int main()
 	player.getMortality()->setHealth(100);				// Set the player's health to 100
 
 	player.setComponent(spaceshipHandler);				// Give the player a spaceshipHandler component
-	player.getSpaceshipHandler()->SetupProjection(SC_WIDTH, SC_HEIGHT);
-	player.getSpaceshipHandler()->Init();
+	player.getSpaceshipHandler()->SetupProjection(SC_WIDTH, SC_HEIGHT);		// Setup the viewing projection
+	player.getSpaceshipHandler()->Init();				// Initialise the player's spaceship and associated variables
 
 	//*************************************************************
+
+	// Material
 
     // Set color and depth clear value
     glClearDepth(1.f);
     glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+
+	 // Material properties
+	 GLfloat mat_diffuse[] = {0.75, 0.75, 0.75, 1.0};
+	 GLfloat mat_specular[] = {0.6, 0.6, 0.6, 1.0 };
+	 GLfloat mat_shininess[] = { 100.0 };
+
+	 glShadeModel (GL_SMOOTH); // Smooth or flat
 	
 	// Enable material
-	glMaterialfv(GL_FRONT_AND_BACK,GL_AMBIENT_AND_DIFFUSE, mat_diffuse);
+	glMaterialfv(GL_FRONT, GL_AMBIENT_AND_DIFFUSE, mat_diffuse);
 	glMaterialfv(GL_FRONT, GL_SPECULAR, mat_specular);
 	glMaterialfv(GL_FRONT, GL_SHININESS, mat_shininess);
 
@@ -151,6 +175,7 @@ int main()
 	//************************************************************
 
 	// Text Messages/UI setup
+
 	std::string stringOfMessages[5]; // Array to hold the string messages seen on the screen
 	sf::Font gameFont; // The font used for the game
 	sf::Text message[5]; // The text messages used for the game
@@ -190,11 +215,11 @@ int main()
 	cout << endl << "Press G to start" << endl << endl;
 	cout << "Use Q and E to turn the spaceship" << endl;
 	cout << "Use W and S to move the spaceship forward and back" << endl;
-	cout << "Use C,V and B to switch between the three cameras" << endl;
+	cout << "Use C, V and B to switch between the three cameras" << endl;
 	cout << "Use P and O to pause and unpause the game" << endl << endl;
-	cout << "To rotate the camera, hold down the left mouse button and move the mouse" << endl;
-	cout << "To pan the camera, hold down the right mouse button and move the mouse" << endl;
-	cout << "To zoom the camera, use the up and down keys" << endl;
+	cout << "To rotate the free camera, hold down the left mouse button and move the mouse" << endl;
+	cout << "To pan the free camera, hold down the right mouse button and move the mouse" << endl;
+	cout << "To zoom the free camera, use the up and down keys" << endl;
 	cout << "To toggle lights on and off, use Z and X" << endl;
 
 	//************************************************************
@@ -304,7 +329,7 @@ int main()
 	 {
 		if(sf::Keyboard::isKeyPressed(sf::Keyboard::W))		// Move forward
 		{
-			player.getSpaceshipHandler()->WalkForward();
+			player.getSpaceshipHandler()->WalkForwards();
 		}
 
 		if(sf::Keyboard::isKeyPressed(sf::Keyboard::S))		// Move backwards
@@ -354,13 +379,11 @@ int main()
 		if(sf::Keyboard::isKeyPressed(sf::Keyboard::Z))		// Enable light zero
 		{
 			glEnable(GL_LIGHTING);
-			glEnable(GL_LIGHT0);
 		}
 
 		if(sf::Keyboard::isKeyPressed(sf::Keyboard::X))		// Disable light zero
 		{
 			glDisable(GL_LIGHTING);
-			glDisable(GL_LIGHT0);
 		}
 
         // Set the active window before using OpenGL commands
@@ -426,7 +449,6 @@ int main()
 			{
 				App.draw(message[i]);
 			}
-			
 			
 			// Pop GL States when we have finished drawing the messages
 			App.popGLStates();
