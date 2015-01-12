@@ -1,9 +1,14 @@
+#ifndef COLLIDABLE_H
+#define COLLIDABLE_H
+
 class Collidable
 {
-protected:
+private:
 
 public:
+
 	Collidable();
 	~Collidable();
-
 };
+
+#endif // COLLIDABLE_H

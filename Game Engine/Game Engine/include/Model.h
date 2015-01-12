@@ -11,8 +11,7 @@ using namespace std;
 
 class Model
 {
-
-protected:
+private:
 
 	// Vectors to store all information from the obj files
 	vector<GLfloat> vertices; // v
@@ -30,16 +29,21 @@ protected:
 	float yTranslate, yRotate, yScale;
 	float zTranslate, zRotate, zScale;
 
+	// Used to rotate the model as the program runs
+	float angleIncrementX, angleIncrementY, angleIncrementZ;
+	float totalAngleIncrementX, totalAngleIncrementY, totalAngleIncrementZ;
+
 	// Array to store texture data
 	char textureData[256*256*3];
 	GLuint textureID[1];
 
 public:
 
-	Model(float tx, float ty, float tz, float rx, float ry, float rz, float sx, float sy, float sz); // Create a model with all parameters from a file
-	bool loadModel(string fileName);																 // Loads a model from an obj file
-	virtual void draw();																			 // Handles all the openGL draw stuff
-	bool loadTexture(string fileName);																 // Load the texture for the model
+	// Create a model with all parameters from a file
+	Model(float tx, float ty, float tz, float rx, float ry, float rz, float sx, float sy, float sz, float aix, float aiy, float aiz); 
+	bool loadModel(string fileName);					// Loads a model from an obj file
+	virtual void draw();								// Handles all the openGL draw stuff
+	bool loadTexture(string fileName);					// Load the texture for the model
 };
 
-#endif
+#endif	// MODEL_H

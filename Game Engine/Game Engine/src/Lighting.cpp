@@ -2,11 +2,11 @@
 
 Lighting::Lighting()
 {
-	// Default light values
+	// Set the default light values
 
-	light_ambient[0] = 0.7f;
-	light_ambient[1] = 0.7f;
-	light_ambient[2] = 0.7f;
+	light_ambient[0] = 0.3f;
+	light_ambient[1] = 0.3f;
+	light_ambient[2] = 0.3f;
 	light_ambient[3] = 1.0f;
 
 	light_diffuse[0] = 0.5f;
@@ -17,30 +17,21 @@ Lighting::Lighting()
 	light_specular[0] = 0.0f;
 	light_specular[1] = 0.0f;
 	light_specular[2] = 0.0f;
-	light_specular[3] = 0.0f;
-
-	// 4th parameter is point light yes = 1 no = 0
+	light_specular[3] = 1.0f;
 
 	light_position[0] = 0.0f;
 	light_position[1] = 0.0f;
 	light_position[2] = 0.0f;
-	light_position[3] = 0.0f;
-
-	glEnable(lightNumber);
+	light_position[3] = 1.0f;
 
 	/*
+	glEnable(lightNumber);
 	glLightfv(lightNumber, GL_AMBIENT, light_ambient);
 	glLightfv(lightNumber, GL_DIFFUSE, light_diffuse);
 	glLightfv(lightNumber, GL_SPECULAR, light_specular);
 	glLightfv(lightNumber, GL_POSITION, light_position);
-
-
-	glLightf(lightNumber, GL_CONSTANT_ATTENUATION,  2.0f);
+	glLightf(lightNumber, GL_CONSTANT_ATTENUATION,  0.8f);
 	*/
-
-	// glLightModelfv(GL_LIGHT_MODEL_AMBIENT, light_ambient);
-
-	currentLight = 0;
 
 }
 
@@ -89,9 +80,4 @@ void Lighting::setSpecular(GLfloat x, GLfloat y, GLfloat z, GLfloat w)
 	light_specular[1] = y;
 	light_specular[2] = z;
 	light_specular[3] = w;
-}
-
-int Lighting::getCurrentLight()
-{
-	return currentLight;
 }

@@ -1,22 +1,21 @@
-
 #include <windows.h>
-
-
 #include <gl/gl.h>
 #include <gl/glu.h>
 #include <math.h>
 #include "SpaceshipHandler.h"
 #include "Spaceship.h"
 
-// disable implicit float-double casting
+// Disable implicit float-double casting
 #pragma warning(disable:4305)
 
 SpaceshipHandler::SpaceshipHandler()
 {
+
 }
 
 SpaceshipHandler::~SpaceshipHandler()
 {
+
 }
 
 bool SpaceshipHandler::Init()
@@ -45,7 +44,7 @@ bool SpaceshipHandler::Shutdown()
 
 void SpaceshipHandler::SetupProjection(int width, int height)
 {
-	if (height == 0)					// Don't want a divide by zero
+	if (height == 0)						// Don't want a divide by zero
 	{
 		height = 1;					
 	}
@@ -66,8 +65,8 @@ void SpaceshipHandler::SetupProjection(int width, int height)
 
 void SpaceshipHandler::Prepare(float dt)
 {
-	rotationAngle += 0.0f * dt;				// increase our rotation angle counter
-	if (rotationAngle >= 360.0f)			// if we've gone in a circle, reset counter
+	rotationAngle += 0.0f * dt;				// Increase our rotation angle counter
+	if (rotationAngle >= 360.0f)			// If we've gone in a circle, reset counter
 		rotationAngle = 0.0f;
 
 	theSpaceship->Prepare(dt);
@@ -84,9 +83,7 @@ void SpaceshipHandler::Render()
 
 		theSpaceship->DrawSpaceship();	// Draw the spaceship
 		
-		// Render code changed so that it does translate then rotate
-		// rather than translate then rotate then translate again (bad idea)
-
+		// Render code changed so that it does translation then rotation
 
 		// Change the screen back to white for rendering other models in the scene
 		glColor3f(1.0f, 1.0f, 1.0f);
@@ -113,7 +110,6 @@ float SpaceshipHandler::getRotation()
 {
 	return rotationAngle;
 }
-
 
 void SpaceshipHandler::TurnSpaceshipLeft(float angle)
 {

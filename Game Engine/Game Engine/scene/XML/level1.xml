@@ -10,6 +10,9 @@
 			  xScale="10"
 			  yScale="10"
 			  zScale="10"
+			  angleIncrementX="0"
+			  angleIncrementY="0"
+			  angleIncrementZ="0.2"
 			  textureFileLocation="scene/Textures/moonTexture.raw"
 	/>
 	
@@ -23,6 +26,9 @@
 			  xScale="10"
 			  yScale="10"
 			  zScale="10"
+			  angleIncrementX="0"
+			  angleIncrementY="0.15"
+			  angleIncrementZ="0.2"
 			  textureFileLocation="scene/Textures/earthTexture.raw"
 	/>
 	
@@ -36,6 +42,9 @@
 			  xScale="10"
 			  yScale="10"
 			  zScale="10"
+			  angleIncrementX="0"
+			  angleIncrementY="0.1"
+			  angleIncrementZ="0"
 			  textureFileLocation="scene/Textures/marsTexture.raw"
 	/>
 			  
@@ -49,6 +58,9 @@
 			  xScale="30"
 			  yScale="30"
 			  zScale="30"
+			  angleIncrementX="0.05"
+			  angleIncrementY="0.05"
+			  angleIncrementZ="0.05"
 			  textureFileLocation="scene/Textures/jupiterTexture.raw"
 	/>
 	
@@ -64,6 +76,9 @@
 			  xScale="8"
 			  yScale="8"
 			  zScale="8"
+			  angleIncrementX="0.7"
+			  angleIncrementY="0"
+			  angleIncrementZ="0.7"	
 			  textureFileLocation="scene/Textures/plutoTexture.raw"
 	/>
 	

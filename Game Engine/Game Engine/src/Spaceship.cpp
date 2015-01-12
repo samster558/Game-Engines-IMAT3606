@@ -35,27 +35,27 @@ void Spaceship::DrawCube(float xPos, float yPos, float zPos)
 	glPushMatrix();
 		glTranslatef(xPos, yPos, zPos);
 		glBegin(GL_POLYGON);
-			glVertex3f(0.0f, 0.0f, 0.0f);	// top face
+			glVertex3f(0.0f, 0.0f, 0.0f);	// Top face
 			glVertex3f(0.0f, 0.0f, -1.0f);
 			glVertex3f(-1.0f, 0.0f, -1.0f);
 			glVertex3f(-1.0f, 0.0f, 0.0f);
-			glVertex3f(0.0f, 0.0f, 0.0f);	// front face
+			glVertex3f(0.0f, 0.0f, 0.0f);	// Front face
 			glVertex3f(-1.0f, 0.0f, 0.0f);
 			glVertex3f(-1.0f, -1.0f, 0.0f);
 			glVertex3f(0.0f, -1.0f, 0.0f);
-			glVertex3f(0.0f, 0.0f, 0.0f);	// right face
+			glVertex3f(0.0f, 0.0f, 0.0f);	// Right face
 			glVertex3f(0.0f, -1.0f, 0.0f);
 			glVertex3f(0.0f, -1.0f, -1.0f);
 			glVertex3f(0.0f, 0.0f, -1.0f);
-			glVertex3f(-1.0f, 0.0f, 0.0f);	// left face
+			glVertex3f(-1.0f, 0.0f, 0.0f);	// Left face
 			glVertex3f(-1.0f, 0.0f, -1.0f);
 			glVertex3f(-1.0f, -1.0f, -1.0f);
 			glVertex3f(-1.0f, -1.0f, 0.0f);
-			glVertex3f(0.0f, 0.0f, 0.0f);	// bottom face
+			glVertex3f(0.0f, 0.0f, 0.0f);	// Bottom face
 			glVertex3f(0.0f, -1.0f, -1.0f);
 			glVertex3f(-1.0f, -1.0f, -1.0f);
 			glVertex3f(-1.0f, -1.0f, 0.0f);
-			glVertex3f(0.0f, 0.0f, 0.0f);	// back face
+			glVertex3f(0.0f, 0.0f, 0.0f);	// Back face
 			glVertex3f(-1.0f, 0.0f, -1.0f);
 			glVertex3f(-1.0f, -1.0f, -1.0f);
 			glVertex3f(0.0f, -1.0f, -1.0f);
@@ -88,7 +88,7 @@ void Spaceship::DrawWing(float xPos, float yPos, float zPos)
 	glPushMatrix();
 		glColor3f(0.3f, 0.3f, 0.3f);	
 		glTranslatef(xPos, yPos, zPos);
-		glScalef(1.0f, 4.0f, 1.0f);		// Arm is a 1x4x1 cube
+		glScalef(1.0f, 4.0f, 1.0f);		// Wing is a 1x4x1 cube
 		DrawCube(0.0f, 0.0f, 0.0f);
 	glPopMatrix();
 }
@@ -97,7 +97,7 @@ void Spaceship::DrawCannon(float xPos, float yPos, float zPos)
 {
 	glPushMatrix();
 		glTranslatef(xPos, yPos, zPos);
-		glScalef(1.0f, 5.0f, 1.0f);		// Leg is a 1x5x1 cube
+		glScalef(1.0f, 5.0f, 1.0f);		// Cannon is a 1x5x1 cube
 		glColor3f(1.0f, 0.1f, 0.1f);	
 		DrawCube(0.0f, 0.0f, 0.0f);
 	glPopMatrix();
@@ -152,8 +152,6 @@ void Spaceship::DrawSpaceship()
 			glTranslatef(-1.5f, -2.0f, -5.0f);
 			glRotatef(-90.0f, 1.0f, 0.0f, 0.0f);
 			glRotatef(90.0f, 0.0f, 1.0f, 0.0f);
-			// Rotation placeholder for left cannon
-			// glRotatef(cannonAngles[LEFT], 0.0f, 0.0f, 1.0f);
 			glScalef(1.0f, 1.0f, 0.5f);
 			DrawCannon(-0.5f, 0.0f, -0.5f);
 		glPopMatrix();
@@ -163,8 +161,6 @@ void Spaceship::DrawSpaceship()
 			glTranslatef(1.5f, -2.0f, -5.0f);
 			glRotatef(-90.0f, 1.0f, 0.0f, 0.0f);
 			glRotatef(-90.0f, 0.0f, 1.0f, 0.0f);
-			// Rotation placeholder for right cannon
-			// glRotatef(cannonAngles[RIGHT], 0.0f, 0.0f, 1.0f);
 			glScalef(1.0f, 1.0f, 0.5f);
 			DrawCannon(1.5f, 0.0f, -0.5f);
 		glPopMatrix();

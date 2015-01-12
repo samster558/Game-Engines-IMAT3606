@@ -4,7 +4,6 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/OpenGL.hpp>
 #include <iostream>
-
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
@@ -13,7 +12,7 @@ using namespace std;
 
 class Camera
 {
-protected:
+private:
 
 	// Event used to check for key presses
 	sf::Event Event;
@@ -45,5 +44,4 @@ public:
 	void setTarget(GLfloat xtarget, GLfloat ytarget, GLfloat ztarget);			// Set the camera's target position
 };
 
-
-#endif
+#endif // CAMERA_H

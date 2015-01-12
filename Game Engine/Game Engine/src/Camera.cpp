@@ -2,6 +2,8 @@
 
 Camera::Camera()
 {
+	// Set the default parameters for a camera
+
 	xLook = 0.f;
 	yLook = 0.f;
 	zLook = -30.0f;
@@ -55,8 +57,8 @@ void Camera::moving()
 			zoom(); // Go forward and back in Z
 		}
 
-	oldMousePosX = mousePosX;		// Update the old mouse X position
-	oldMousePosY = mousePosY;		// Update the old mouse Y position
+	oldMousePosX = mousePosX;	// Update the old mouse X position
+	oldMousePosY = mousePosY;	// Update the old mouse Y position
 }
 
 void Camera::rotateX()
@@ -68,7 +70,6 @@ void Camera::rotateX()
 		glm::vec3 target = glm::vec3 (xLook, yLook, zLook);
 
 		glm::vec3 position = glm::vec3 (xCameraPosition, yCameraPosition, zCameraPosition);
-
 
 		glm::mat4 t1 = glm::translate(glm::mat4(1.0),-target);
 		glm::mat4 t2 = glm::translate(glm::mat4(1.0),target);

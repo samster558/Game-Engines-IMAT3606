@@ -11,6 +11,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\Collidable.cpp" />
     <ClCompile Include="src\Mortality.cpp" />
     <ClCompile Include="src\SpaceshipHandler.cpp" />
     <ClCompile Include="src\GameObject.cpp" />
@@ -23,8 +24,10 @@
     <ClCompile Include="src\tinyxml.cpp" />
     <ClCompile Include="src\tinyxmlerror.cpp" />
     <ClCompile Include="src\tinyxmlparser.cpp" />
+    <ClCompile Include="src\Weapon.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="include\Collidable.h" />
     <ClInclude Include="include\Mortality.h" />
     <ClInclude Include="include\SpaceshipHandler.h" />
     <ClInclude Include="include\GameObject.h" />
@@ -33,6 +36,10 @@
     <ClInclude Include="include\Camera.h" />
     <ClInclude Include="include\Spaceship.h" />
     <ClInclude Include="include\Scene.h" />
+    <ClInclude Include="include\Weapon.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ClassDiagram.cd" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{8374BD26-3FE4-4BA5-9D78-95087DD25F22}</ProjectGuid>

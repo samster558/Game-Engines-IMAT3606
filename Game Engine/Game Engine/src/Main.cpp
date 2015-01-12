@@ -43,10 +43,12 @@ int main()
 	scene.modelConstructor("scene/XML/level1.xml");
 
 	// Create some strings to make using the getComponent functions quicker and clearer
-	std::string light = "Lighting";
 	std::string camera = "Camera";
+	std::string collidable= "Collidable";
+	std::string light = "Lighting";
 	std::string mortality = "Mortality";
 	std::string spaceshipHandler = "SpaceshipHandler";
+	std::string weapon = "Weapon";
 
 	// Create an enum of states for switching between menus and levels
 	enum States {mainMenu, splashScreen, playingLevel, pause};
@@ -55,30 +57,20 @@ int main()
 	//*************************************************************
 
 	// Lighting
-
-	// Enable Lighting
-	 glEnable(GL_LIGHTING);
-	 
-	 glEnable(GL_LIGHT0);
-
+	
 	GameObject lightZero;
 	lightZero.setComponent(light);
 	lightZero.getLight()->setLight(GL_LIGHT0);
-	lightZero.getLight()->setPosition(0.0f, 0.0f, 0.0f, 1.0f);				// Location - (10,0,-50)
-	//lightZero.getLight()->setDiffuse(1.0f, 1.0f, 1.0f, 1.0f);
+	lightZero.getLight()->setPosition(10.0f, 0.0f, -50.0f, 1.0f);
+	lightZero.getLight()->setAmbient(1.0f, 0.0f, 0.0f, 1.0f);
+	lightZero.getLight()->setDiffuse(1.0f, 1.0f, 1.0f, 1.0f);
 	
-
 	GameObject lightOne;
 	lightOne.setComponent(light);
 	lightOne.getLight()->setLight(GL_LIGHT1);
-	lightOne.getLight()->setPosition(10.0f, 0.0f, -50.0f, 1.0f);			// Location - (-10,0,-50)
-	//lightOne.getLight()->setDiffuse(0.0f, 1.0f, 0.0f, 1.0f);
-	
-
-	 cout << lightZero.getLight()->getLightNumber() << endl << endl;
-	 cout << lightOne.getLight()->getLightNumber() << endl << endl;
-
-	 
+	lightOne.getLight()->setPosition(-10.0f, 0.0f, -50.0f, 1.0f);
+	lightOne.getLight()->setAmbient(0.0f, 1.0f, 0.0f, 1.0f);
+	lightOne.getLight()->setDiffuse(0.0f, 1.0f, 0.0f, 1.0f);
 	
 	//*************************************************************
 
@@ -144,7 +136,7 @@ int main()
 
 	//*************************************************************
 
-	// Material
+	// Material setup
 
     // Set color and depth clear value
     glClearDepth(1.f);
@@ -158,7 +150,7 @@ int main()
 	 glShadeModel (GL_SMOOTH); // Smooth or flat
 	
 	// Enable material
-	glMaterialfv(GL_FRONT, GL_AMBIENT_AND_DIFFUSE, mat_diffuse);
+	glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE, mat_diffuse);
 	glMaterialfv(GL_FRONT, GL_SPECULAR, mat_specular);
 	glMaterialfv(GL_FRONT, GL_SHININESS, mat_shininess);
 
@@ -261,15 +253,16 @@ int main()
 
 			if(sf::Keyboard::isKeyPressed(sf::Keyboard::G))		// Start the game from the menu
 			{
-				gameState = playingLevel;
-				// gameState = splashScreen;		
+				gameState = splashScreen;		
 			}
 		}
 
 		if(gameState == splashScreen)
 		{
+			// Clear the screen
 			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
+			// If statements used to make the splashscreen fade in and out
 			if(i>245)
 			{
 				Sleep(500);
@@ -292,10 +285,13 @@ int main()
 			// Push GL States to preserve them
 			App.pushGLStates();
 
+			// Draw the splashscreen
 			App.draw(splashSprite);
 
+			// Set the transparency of the blackRectangle to be variable
 			blackRectangle.setFillColor(sf::Color(0,0,0,i));
 
+			// Draw the blackRectangle that initially covers the splashscreen
 			App.draw(blackRectangle);
 
 			// Pop GL States when we have finished drawing the messages
@@ -311,7 +307,7 @@ int main()
 			// Push GL States to preserve them
 			App.pushGLStates();
 
-			// Display pause message
+			// Draw the pause message
 			App.draw(message[3]);
 			
 			// Pop GL States when we have finished drawing the messages
@@ -376,12 +372,12 @@ int main()
 			}	
 		}
 
-		if(sf::Keyboard::isKeyPressed(sf::Keyboard::Z))		// Enable light zero
+		if(sf::Keyboard::isKeyPressed(sf::Keyboard::Z))		// Enable lighting
 		{
 			glEnable(GL_LIGHTING);
 		}
 
-		if(sf::Keyboard::isKeyPressed(sf::Keyboard::X))		// Disable light zero
+		if(sf::Keyboard::isKeyPressed(sf::Keyboard::X))		// Disable lighting
 		{
 			glDisable(GL_LIGHTING);
 		}
@@ -456,9 +452,6 @@ int main()
 			// Restart the clock
 			Clock.restart();
 		}
-
-		
-			
 
         // Finally, display rendered frame on screen
         App.display();

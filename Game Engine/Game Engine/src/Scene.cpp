@@ -44,9 +44,12 @@ void Scene::loadAttributesFromElement(TiXmlElement* element)
 	string modelFile;
 	string textureString = "default no texture";
 
-	float tx,ty,tz = 0;				// create translate x,y,z variables and set their default values
-	float rx,ry,rz = 0;				// create rotate x,y,z variables and set their default values
-	float sx,sy,sz = 1;				// create scale x,y,z variables and set their default values
+	// Create temporary variables to be used for loading in model data
+
+	float tx,ty,tz = 0;				// Create translate x,y,z variables and set their default values
+	float rx,ry,rz = 0;				// Create rotate x,y,z variables and set their default values
+	float sx,sy,sz = 1;				// Create scale x,y,z variables and set their default values
+	float aix,aiy,aiz = 0;			// Create angleIncrement x,y,z variables and set their default values
 
 	string elemName = element->Value();
 
@@ -61,7 +64,7 @@ void Scene::loadAttributesFromElement(TiXmlElement* element)
 
 		modelFile = attr;
 	}
-	else         // If there is no model file location then exit the function
+	else   // If there is no model file location then exit the function
 	{
 		cout << elemName << " no model found" << endl << endl;
 		return;
@@ -70,8 +73,6 @@ void Scene::loadAttributesFromElement(TiXmlElement* element)
 	attr = element->Attribute("xTranslate");
 	if(attr != NULL)
 	{
-		// cout << elemName << " xTranslate is " << attr << endl;
-
 		double temp;
 
 		attr = element->Attribute("xTranslate", &temp);
@@ -83,8 +84,6 @@ void Scene::loadAttributesFromElement(TiXmlElement* element)
 	attr = element->Attribute("yTranslate");
 	if(attr != NULL)
 	{
-		// cout << elemName << " yTranslate " << attr << endl;
-
 		double temp;
 
 		attr = element->Attribute("yTranslate", &temp);
@@ -96,8 +95,6 @@ void Scene::loadAttributesFromElement(TiXmlElement* element)
 	attr = element->Attribute("zTranslate");
 	if(attr != NULL)
 	{
-		// cout << elemName << " zTranslate is " << attr << endl;
-
 		double temp;
 
 		attr = element->Attribute("zTranslate", &temp);
@@ -109,8 +106,6 @@ void Scene::loadAttributesFromElement(TiXmlElement* element)
 	attr = element->Attribute("xRotate");
 	if(attr != NULL)
 	{
-		// cout << elemName << " xRotate is " << attr << endl;
-
 		double temp;
 
 		attr = element->Attribute("xRotate", &temp);
@@ -122,8 +117,6 @@ void Scene::loadAttributesFromElement(TiXmlElement* element)
 	attr = element->Attribute("yRotate");
 	if(attr != NULL)
 	{
-		// cout << elemName << " yRotate is " << attr << endl;
-
 		double temp;
 
 		attr = element->Attribute("yRotate", &temp);
@@ -135,8 +128,6 @@ void Scene::loadAttributesFromElement(TiXmlElement* element)
 	attr = element->Attribute("zRotate");
 	if(attr != NULL)
 	{
-		// cout << elemName << " zRotate is " << attr << endl;
-
 		double temp;
 
 		attr = element->Attribute("zRotate", &temp);
@@ -148,8 +139,6 @@ void Scene::loadAttributesFromElement(TiXmlElement* element)
 	attr = element->Attribute("xScale");
 	if(attr != NULL)
 	{
-		// cout << elemName << " xScale is " << attr << endl;
-
 		double temp;
 
 		attr = element->Attribute("xScale", &temp);
@@ -161,8 +150,6 @@ void Scene::loadAttributesFromElement(TiXmlElement* element)
 	attr = element->Attribute("yScale");
 	if(attr != NULL)
 	{
-		// cout << elemName << " yScale is " << attr << endl;
-
 		double temp;
 
 		attr = element->Attribute("yScale", &temp);
@@ -173,13 +160,41 @@ void Scene::loadAttributesFromElement(TiXmlElement* element)
 	attr = element->Attribute("zScale");
 	if(attr != NULL)
 	{
-		// cout << elemName << " zScale is " << attr << endl;
-
 		double temp;
 
 		attr = element->Attribute("zScale", &temp);
 
 		sz = temp;
+	}
+
+	attr = element->Attribute("angleIncrementX");
+	if(attr != NULL)
+	{
+		double temp;
+
+		attr = element->Attribute("angleIncrementX", &temp);
+
+		aix = temp;
+	}
+
+	attr = element->Attribute("angleIncrementY");
+	if(attr != NULL)
+	{
+		double temp;
+
+		attr = element->Attribute("angleIncrementY", &temp);
+
+		aiy = temp;
+	}
+
+	attr = element->Attribute("angleIncrementZ");
+	if(attr != NULL)
+	{
+		double temp;
+
+		attr = element->Attribute("angleIncrementZ", &temp);
+
+		aiz = temp;
 	}
 				
 
@@ -191,23 +206,17 @@ void Scene::loadAttributesFromElement(TiXmlElement* element)
 		textureString = attr;
 	}
 
-	// Using the variables from the XML file,
-	// or the defaults if attributes are missing,
-	// create a model
-
-	Model m(tx,ty,tz,rx,ry,rz,sx,sy,sz);
+	// Using the variables from the XML file, or the defaults if attributes are missing, create a model
+	Model m(tx,ty,tz,rx,ry,rz,sx,sy,sz,aix,aiy,aiz);
 
 	// Load the model's obj and texture file, and push it onto the modelVector
-
 	m.loadTexture(textureString);
-	// m.loadModel(modelFile);
 
-	// If the model loading succeeded, then push the model onto the model vector;
+	// If the model loading succeeded, then push the model onto the model vector
 	if(m.loadModel(modelFile))
 	{
 	modelVector.push_back(m);
 	}
-			
 }
 
 void Scene::drawScene()
@@ -220,6 +229,7 @@ void Scene::drawScene()
 	int vectorSize = modelVector.size();
 	std::vector<Model>::iterator i;
 	
+	// Draw each model in the modelVector
 	for( i = modelVector.begin(); i != modelVector.end(); ++i)
 	{
 		i->draw();
@@ -229,5 +239,4 @@ void Scene::drawScene()
 	glDisableClientState(GL_NORMAL_ARRAY);
 	glDisableClientState(GL_TEXTURE_COORD_ARRAY);
 	glDisable(GL_TEXTURE_2D);
-
 }

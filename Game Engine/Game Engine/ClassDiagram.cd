@@ -1,0 +1,85 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Mortality">
+    <Position X="0.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACIAABAAAAAAg=</HashCode>
+      <FileName>include\Mortality.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SpaceshipHandler">
+    <Position X="0.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAGIAAAKAAQAAAgAAA0QAAAEAAAAAAgFAiAGBBAAA=</HashCode>
+      <FileName>include\SpaceshipHandler.h</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="theSpaceship" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="GameObject">
+    <Position X="5.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ABIAAAAYAACAAIAgBAQAIAAAAAAAAAAAQAAAAQICACA=</HashCode>
+      <FileName>include\GameObject.h</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="m_camera" />
+      <Field Name="m_lighting" />
+      <Field Name="m_mortality" />
+      <Field Name="m_weapon" />
+      <Field Name="m_collidable" />
+      <Field Name="m_spaceshipHandler" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="Lighting">
+    <Position X="7.75" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IQAAAAEAAAAIAAAAQAQIAAASAAAAAAQEAAAAAQAAACA=</HashCode>
+      <FileName>include\Lighting.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Model">
+    <Position X="14.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAbggADMAAAJgAAAIAAAIAAgAQABAAEAhAAHEAIAA=</HashCode>
+      <FileName>include\Model.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Camera">
+    <Position X="10.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAyAggCAAAQAAAAQAggGFASDgAAAAAAAAAAAGEEAAA=</HashCode>
+      <FileName>include\Camera.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Spaceship">
+    <Position X="3.5" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IABwAAAAAAAAQAJAIEAIAQgAAAAAAAAAAAACREIAggE=</HashCode>
+      <FileName>include\Spaceship.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Scene">
+    <Position X="12.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAACAAAAAAAAgAgAAoAAAAAAAAAAAAAAAABAAACAA=</HashCode>
+      <FileName>include\Scene.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Collidable">
+    <Position X="3" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAACAAAAAAAAA=</HashCode>
+      <FileName>include\Collidable.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Weapon">
+    <Position X="8.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAA=</HashCode>
+      <FileName>include\Weapon.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

@@ -5,17 +5,18 @@
 #include <glm/gtc/type_ptr.hpp>
 #include <glm/gtx/rotate_vector.hpp>
 
-// Constants for arm and leg movement states
+// Constants for cannon and wing movement states
 const char BACKWARD_STATE = 0;
 const char FORWARD_STATE  = 1;
 
-// Index constants for accessing arm (red block) and leg (yellow block) array data
+// Index constants for accessing cannon and wing array data
 const char LEFT  = 0;
 const char RIGHT = 1;
 
 class Spaceship
 {
 private:
+
 	char cannonStates[2];	
 	char wingStates[2];
 
@@ -30,7 +31,7 @@ private:
 	// Draws a unit cube
 	void DrawCube(float xPos, float yPos, float zPos);
 
-	// methods to draw the parts of the spaceship
+	// Methods to draw the parts of the spaceship
 	void DrawWing(float xPos, float yPos, float zPos);
 	void DrawCockpit(float xPos, float yPos, float zPos);
 	void DrawBody(float xPos, float yPos, float zPos);
@@ -59,4 +60,4 @@ public:
 	void fireCycle();
 };
 
-#endif
+#endif	// SPACESHIP_H

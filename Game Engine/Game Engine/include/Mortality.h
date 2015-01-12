@@ -3,17 +3,17 @@
 
 class Mortality
 {
-protected:
+private:
+
 	int health;
 
 public:
+
 	Mortality();
 	~Mortality();
 
 	int getHealth();
 	void setHealth(int a);
-
-
 };
 
 #endif // MORTALITY_H

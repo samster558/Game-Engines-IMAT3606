@@ -1,9 +1,14 @@
+#ifndef WEAPON_H
+#define WEAPON_H
+
 class Weapon
 {
-protected:
+private:
 
 public:
+
 	Weapon();
 	~Weapon();
-
 };
+
+#endif // WEAPON_H

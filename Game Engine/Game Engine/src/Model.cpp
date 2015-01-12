@@ -1,7 +1,9 @@
 #include "Model.h"
 
-Model::Model(float tx, float ty, float tz, float rx, float ry, float rz, float sx, float sy, float sz) //set all values to the correct attributes
+Model::Model(float tx, float ty, float tz, float rx, float ry, float rz, float sx, float sy, float sz, float aix, float aiy, float aiz) //set all values to the correct attributes
 {
+	// Set the default parameters for a model
+
 	xTranslate = tx;	  
 	xRotate = rx;
 	xScale = sx;
@@ -13,9 +15,17 @@ Model::Model(float tx, float ty, float tz, float rx, float ry, float rz, float s
  	zTranslate = tz;
 	zRotate = rz;
 	zScale = sz;
+
+	angleIncrementX = aix;
+	angleIncrementY = aiy;
+	angleIncrementZ = aiz;
+
+	totalAngleIncrementX = 0;
+	totalAngleIncrementY = 0;
+	totalAngleIncrementZ = 0;
 }
 
-bool Model::loadModel(string fileName) //load model function
+bool Model::loadModel(string fileName) // Load model function
 {
 	ifstream objectFile;
 
@@ -32,17 +42,17 @@ bool Model::loadModel(string fileName) //load model function
 	float Vt1, Vt2;
 	int fV, fVt, fVn;
 
-	//open file
+	// Open the specified file
 	objectFile.open(fileName);
 	
-	//error message if file could not open
+	// Output error message if the file could not open
 	if(!objectFile.is_open())
 	{
 		cout<<"file not found"<<endl<<endl;
 		return false;
 	}
 
-	//push back dummy values into the vectors
+	// Push back dummy values into the vectors
 	verticesFile.push_back(0.f);
 	verticesFile.push_back(0.f);
 	verticesFile.push_back(0.f);
@@ -52,13 +62,13 @@ bool Model::loadModel(string fileName) //load model function
 	vertexNormalsFile.push_back(0.f);
 	vertexNormalsFile.push_back(0.f);
 
-	//while file has not reached the end
+	// While file has not reached the end
 	while(!objectFile.eof())
 	{
 		getline(objectFile, inputLine);
 		ss.str("");
 		ss.clear();
-		//checks for lines starting with v
+		// Checks for lines starting with v
 		found = inputLine.find("v ");
 		if(found!=string::npos)
 		{
@@ -71,7 +81,6 @@ bool Model::loadModel(string fileName) //load model function
 			verticesFile.push_back(Vx);
 			verticesFile.push_back(Vy);
 			verticesFile.push_back(Vz);
-			
 		}
 
 		found = inputLine.find("vn");
@@ -87,8 +96,6 @@ bool Model::loadModel(string fileName) //load model function
 			vertexNormalsFile.push_back(Vn1);
 			vertexNormalsFile.push_back(Vn2);
 			vertexNormalsFile.push_back(Vn3);
-			
-			
 		}
 
 		found = inputLine.find("vt");
@@ -103,11 +110,9 @@ bool Model::loadModel(string fileName) //load model function
 		
 			vertexTexturesFile.push_back(Vt1);
 			vertexTexturesFile.push_back(Vt2);
-			
-			
 		}
 
-		//checks for lines starting with f
+		// Checks for lines starting with f
 		found = inputLine.find("f ");
 		if(found!=string::npos)
 		{
@@ -115,7 +120,6 @@ bool Model::loadModel(string fileName) //load model function
 			ss.str(inputLine);
 			ss.ignore(1);
 
-			
 			for(int i = 0; i < 3; ++i)
 			{
 				ss>>fV;
@@ -158,23 +162,16 @@ bool Model::loadModel(string fileName) //load model function
 						}
 					}
 				}
-				
-			
 			}
-		
-			
 		}
-
-		
-		
 	}return true;
 }
 
-bool Model::loadTexture(string fileName) //load texture from file
+bool Model::loadTexture(string fileName) // Load texture from file
 {
 	ifstream textureFile;
 
-	//read in first texture
+	// Read in first texture
 	textureFile.open(fileName,ios::binary);
 	if (!textureFile)
 	{
@@ -208,9 +205,36 @@ void Model::draw()
 
 	glTranslatef(xTranslate, yTranslate, zTranslate);
 
-	glRotatef(xRotate,1.f,0.f,0.f);
-	glRotatef(yRotate,0.f,1.f,0.f);
-	//glRotatef(zRotate,0.f,0.f,1.f);
+	glRotatef(xRotate, 1.0f, 0.0f, 0.0f);
+	glRotatef(yRotate, 0.0f, 1.0f, 0.0f);
+	glRotatef(zRotate, 0.0f, 0.0f, 1.0f);
+
+	// Update the totalAngleIncrement values
+
+	totalAngleIncrementX += angleIncrementX;
+	totalAngleIncrementY += angleIncrementY;
+	totalAngleIncrementZ += angleIncrementZ;
+
+	// Clamp the angle between 0 and 360 to stop it from reaching massive values
+
+	if(totalAngleIncrementX > 360)
+	{
+		totalAngleIncrementX = 0;
+	}
+	if(totalAngleIncrementY > 360)
+	{
+		totalAngleIncrementY = 0;
+	}
+	if(totalAngleIncrementX > 360)
+	{
+		totalAngleIncrementZ = 0;
+	}
+
+	// Apply the constantly updating rotations
+
+	glRotatef(totalAngleIncrementX, 1.0f, 0.0f, 0.0f);
+	glRotatef(totalAngleIncrementY, 0.0f, 1.0f, 0.0f);
+	glRotatef(totalAngleIncrementZ, 0.0f, 0.0f, 1.0f);
 
 	if(xScale > 0) glScalef(xScale, 1, 1);
 	if(yScale > 0) glScalef(1, yScale, 1);
